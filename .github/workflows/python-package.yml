@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  Build-ubuntu-22.04:
+  Build-ubuntu-2204:
     name: "Build on Ubuntu 22.04"
     runs-on: ubuntu-22.04
     strategy:
@@ -39,7 +39,7 @@ jobs:
       run: |
         python ./core.py
  
-Build-ubuntu-22.04:
+Build-Windows-Server:
     name: "Build on Windows Server"
     runs-on: windows-latest
     strategy:
