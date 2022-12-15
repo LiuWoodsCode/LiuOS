@@ -40,5 +40,5 @@ jobs:
         export runningactions=yes
     - name: Run the program
       run: |
-        python .\core.py
+        python ./core.py
  
