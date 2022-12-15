@@ -89,4 +89,4 @@ else:
             logging.error("Incorrect login credentials")
             attemps += 1
             continue
-raise Exception("Too many password attempts. Because of the risk of a brute force attack, after 6 attempts, you will need to rerun LiuOS to try 6 more times.")
+print("Too many password attempts. Because of the risk of a brute force attack, after 6 attempts, you will need to rerun LiuOS to try 6 more times.")
