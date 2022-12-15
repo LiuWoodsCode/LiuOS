@@ -16,7 +16,7 @@ def actualsys() :
         print(lang.SAMPLE_ABC)
         print(lang.SAMPLE_STRING)
 logging.debug("Assigned main system function")
-if environ.get('GITHUB_ACTIONS') != "false":
+if environ.get('GITHUB_ACTIONS') == "true":
         logging.info('Running on GitHub Actions, bypassing the login process')
         print(lang.SUCCESSFUL_LOGIN)
         actualsys()
