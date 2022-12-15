@@ -38,8 +38,8 @@ jobs:
     - name: Run the program
       run: |
         python ./core.py
- 
-Build-Windows-Server:
+        
+  Build-Windows-Server:
     name: "Build on Windows Server"
     runs-on: windows-latest
     strategy:
