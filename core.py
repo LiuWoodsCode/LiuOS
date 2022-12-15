@@ -11,9 +11,14 @@ logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG,
 # Counter
 attemps = 0
 def actualsys() :
-        print("Logged In")
+        logging.debug("Launched main system")
+        logging.warning("Currently just sample strings")
+        print(lang.SAMPLE_ABC)
+        print(lang.SAMPLE_STRING)
+logging.debug("Assigned main system function")
 if environ.get('GITHUB_ACTIONS') != "false":
-        logging.info('Running on GitHub Actions, bypassing the password')
+        logging.info('Running on GitHub Actions, bypassing the login process')
+        print(lang.SUCCESSFUL_LOGIN)
         actualsys()
 else:
  # Authentication system
