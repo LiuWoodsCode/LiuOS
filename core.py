@@ -13,6 +13,7 @@ attemps = 0
 def actualsys() :
         print("Logged In")
 if environ.get('GITHUB_ACTIONS') != "false":
+        logging.info('Running on GitHub Actions, bypassing the password')
         actualsys()
 else:
  # Authentication system
