@@ -21,7 +21,7 @@ while attemps < 3:
     bytehash = hashlib.sha512(password.encode())
     pwdreshash = bytehash.hexdigest()
     logging.debug('Generated hash of password')
-    if "runningactions" in os.environ:
+    if "GITHUB_ACTIONS" in os.environ:
         actualsys()
     elif username == cred.loginname and pwdreshash == cred.loginpass:
         print(lang.SUCCESSFUL_LOGIN)
