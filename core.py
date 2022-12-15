@@ -10,11 +10,11 @@ FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(proce
 logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
 # Counter
 attemps = 0
+def actualsys() :
+        print("Logged In")
 if environ.get('GITHUB_ACTIONS') != "false":
         actualsys()
 else:
-    def actualsys() :
-        print("Logged In")
  # Authentication system
     while attemps < 3:
         username = input(lang.ENTER_USERNAME_LOGIN)
