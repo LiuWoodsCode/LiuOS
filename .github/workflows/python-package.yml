@@ -24,6 +24,9 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
+    - name: Internet check
+      run: |
+        ping google.com
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -60,7 +63,7 @@ jobs:
         
   Build-macOS:
     name: "Build on macOS"
-    runs-on: macos-latest
+    runs-on: macos-12
     strategy:
       fail-fast: false
       matrix:
