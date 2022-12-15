@@ -37,7 +37,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Set a bypass enviorment variable 
       run: |
-        export runningactions=yes
+        export runningactions=runningactions
     - name: Run the program
       run: |
         python ./core.py
