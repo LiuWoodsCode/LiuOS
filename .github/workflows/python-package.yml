@@ -57,4 +57,22 @@ jobs:
       shell: "pwsh"
       run: |
         python ./core.py
+        
+  Build-macOS:
+    name: "Build on macOS"
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Run the program
+      run: |
+        python ./core.py
  
