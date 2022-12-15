@@ -41,7 +41,7 @@ jobs:
     - name: Run the program
       run: |
         python ./core.py
-        
+        cat ./LiuOS.log >> $GITHUB_STEP_SUMMARY
   Build-Windows-Server:
     name: "Build on Windows Server"
     runs-on: windows-latest
@@ -78,4 +78,4 @@ jobs:
     - name: Run the program
       run: |
         python ./core.py
- 
+        cat ./LiuOS.log >> $GITHUB_STEP_SUMMARY
