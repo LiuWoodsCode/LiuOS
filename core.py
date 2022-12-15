@@ -4,7 +4,7 @@ import getpass
 import lang
 import cred
 import logging
-import os
+from os import environ
 # Log formatting
 FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
 logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
@@ -21,7 +21,7 @@ while attemps < 3:
     bytehash = hashlib.sha512(password.encode())
     pwdreshash = bytehash.hexdigest()
     logging.debug('Generated hash of password')
-    if "GITHUB_ACTIONS" in os.environ:
+    if environ.get('GITHUB_ACTIONS') is not "false":
         actualsys()
     elif username == cred.loginname and pwdreshash == cred.loginpass:
         print(lang.SUCCESSFUL_LOGIN)
