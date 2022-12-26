@@ -4,13 +4,14 @@ import getpass
 import lang
 import cred
 import logging
-from os import environ
+import os
 import sys
 import cmd
 import runpy
 # Log formatting
 FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
 logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
+
 class LiuShell(cmd.Cmd):
     intro = lang.SHELL_INTRO
     prompt = 'LiuOS: '
@@ -21,6 +22,9 @@ class LiuShell(cmd.Cmd):
         'Runs the script specified, it must be in the same dir as LiuOS and exist, or Python will crash. Ex: run eteled.py'
         logging.info("Running command using run in shell")
         runpy.run_path(path_name=arg)
+    def do_clear(self, arg):
+        'Clears the terminal'
+        os.system('cls' if os.name == 'nt' else 'clear')
     def do_logout(self, arg):
         'Closes the shell. Ex: logout'
         logging.warning("Logging out shell session")
@@ -59,9 +63,10 @@ def parse(arg):
 attemps = 0
 def actualsys() :
         logging.debug("Launched main system")
+        os.system('cls' if os.name == 'nt' else 'clear')
         LiuShell().cmdloop()
 logging.debug("Assigned main system function")
-if environ.get('GITHUB_ACTIONS') == "true":
+if os.environ.get('GITHUB_ACTIONS') == "true":
         logging.info('Running on GitHub Actions, not using the LiuOS Shell')
         print(lang.ENTER_USERNAME_LOGIN)
         print(lang.ENTER_PASSWD_LOGIN)
@@ -82,7 +87,7 @@ else:
         if attemps == 6:
         ## Brute force protection
            raise Exception("Too many password attempts. Because of the risk of a brute force attack, after 6 attempts, you will need to rerun LiuOS to try 6 more times.")
-        if environ.get('GITHUB_ACTIONS') == "true":
+        if os.environ.get('GITHUB_ACTIONS') == "true":
             actualsys()
         elif username == cred.loginname and pwdreshash == cred.loginpass:
             print(lang.SUCCESSFUL_LOGIN)
