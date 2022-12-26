@@ -70,7 +70,8 @@ if environ.get('GITHUB_ACTIONS') == "true":
         print("Code completed")
 else:
  # Authentication system
-    while attemps < 6:
+
+       while attemps < 7:
         username = input(lang.ENTER_USERNAME_LOGIN)
         logging.debug('Entered username')
         password = getpass.getpass(lang.ENTER_PASSWD_LOGIN)
@@ -78,6 +79,9 @@ else:
         bytehash = hashlib.sha512(password.encode())
         pwdreshash = bytehash.hexdigest()
         logging.debug('Generated hash of password')
+        if attemps == 6:
+        ## Brute force protection
+           raise Exception("Too many password attempts. Because of the risk of a brute force attack, after 6 attempts, you will need to rerun LiuOS to try 6 more times.")
         if environ.get('GITHUB_ACTIONS') == "true":
             actualsys()
         elif username == cred.loginname and pwdreshash == cred.loginpass:
@@ -89,4 +93,4 @@ else:
             logging.error("Incorrect login credentials")
             attemps += 1
             continue
-print("Too many password attempts. Because of the risk of a brute force attack, after 6 attempts, you will need to rerun LiuOS to try 6 more times.")
+        
