@@ -1,4 +1,4 @@
 ## Sample Credentials - Change these!
 loginname = "username"
 ## SHA512 hash of your password (default is "password", no quotes)
-loginpass = "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86"
+loginpass = "e9a75486736a550af4fea861e2378305c4a555a05094dee1dca2f68afea49cc3a50e8de6ea131ea521311f4d6fb054a146e8282f8e35ff2e6368c1a62e909716"

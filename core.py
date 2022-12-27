@@ -106,7 +106,7 @@ else:
         logging.debug('Entered username')
         password = getpass.getpass(lang.ENTER_PASSWD_LOGIN)
         logging.debug('Entered password')
-        bytehash = hashlib.sha512(password.encode())
+        bytehash = hashlib.sha3_512(password.encode())
         pwdreshash = bytehash.hexdigest()
         logging.debug('Generated hash of password')
         if attemps == 6:
