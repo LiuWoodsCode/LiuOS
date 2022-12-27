@@ -26,9 +26,17 @@ class LiuShell(cmd.Cmd):
     file = None
 
     # ----- LiuOS Shell commands -----
+    def do_runcmd(self, arg):
+        'Runs the host shell command specified. Ex: runcmd echo'
+        logging.info("Running command using runcmd in shell")
+        os.system(arg)
+    def do_runline(self, arg):
+        'Runs the Python line specified. Ex: runline print("hello")'
+        logging.info("Running Python code using runline in shell")
+        exec(arg)
     def do_run(self, arg):
         'Runs the script specified, it must be in the same dir as LiuOS and exist, or Python will crash. Ex: run eteled.py'
-        logging.info("Running command using run in shell")
+        logging.info("Running Python file using run in shell")
         runpy.run_path(path_name=arg)
     def do_clear(self, arg):
         'Clears the terminal'
@@ -42,7 +50,8 @@ class LiuShell(cmd.Cmd):
     def do_shutdown(self, arg):
         'Closes the shell, and quits the script. Ex: shutdown'
         print('Logging out...')
-        self.close()
+        logging.info("Shut down using shell command")
+        exit()
         return True
 
     # ----- record and playback -----
@@ -72,6 +81,7 @@ attemps = 0
 def actualsys() :
         logging.debug("Launched main system")
         os.system('cls' if os.name == 'nt' else 'clear')
+        logging.debug("Loaded LiuOS Shell")
         LiuShell().cmdloop()
 logging.debug("Assigned main system function")
 if os.environ.get('GITHUB_ACTIONS') == "true":
@@ -80,6 +90,9 @@ if os.environ.get('GITHUB_ACTIONS') == "true":
         print(lang.ENTER_PASSWD_LOGIN)
         print(lang.FAKE_SUCCESSFUL_LOGIN)
         logging.warning("Fake login completed")
+        print(lang.SHELL_INTRO)
+        print(lang.SAMPLE_ABC)
+        print(lang.SAMPLE_STRING)
         print("Code completed")
 else:
  # Authentication system
