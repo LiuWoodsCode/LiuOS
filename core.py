@@ -112,7 +112,7 @@ else:
         if attemps == 6:
         ## Brute force protection
            raise Exception("Too many password attempts. Because of the risk of a brute force attack, after 6 attempts, you will need to rerun LiuOS to try 6 more times.")
-        if os.environ.get('GITHUB_ACTIONS') != "":
+        if os.environ.get('GITHUB_ACTIONS') == "true":
             logging.warning("Running on Github Actions")
             actualsys()
         elif username == cred.loginname and pwdreshash == cred.loginpass:
