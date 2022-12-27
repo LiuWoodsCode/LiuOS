@@ -3,12 +3,14 @@ import logging
 FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
 logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
 logging.debug("Created logging config")
+import api
+logging.debug(f"Loaded LiuOS API {api.VerAPI}")
 import hashlib
 logging.debug("Imported hashlib")
 import getpass
 logging.debug("Imported getpass")
 import lang
-logging.debug("Imported lang.py")
+logging.debug(f"Loaded LiuOS {lang.CURRENT_LANG}")
 import cred
 logging.debug("Imported cred.py")
 import os
@@ -35,9 +37,9 @@ class LiuShell(cmd.Cmd):
         logging.info("Running Python code using runline in shell")
         exec(arg)
     def do_run(self, arg):
-        'Runs the script specified, it must be in the same dir as LiuOS and exist, or Python will crash. Ex: run eteled.py'
-        logging.info("Running Python file using run in shell")
-        runpy.run_path(path_name=arg)
+        'Runs the script specified, it must be in the programs dir in the same dir as LiuOS and exist, or Python will crash. Ex: run eteled.py'
+        logging.info(f"Running Python file using run in shell")
+        runpy.run_path(path_name="programs/{arg}")
     def do_clear(self, arg):
         'Clears the terminal'
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -93,6 +95,8 @@ if os.environ.get('GITHUB_ACTIONS') == "true":
         print(lang.SHELL_INTRO)
         print(lang.SAMPLE_ABC)
         print(lang.SAMPLE_STRING)
+        TestProg = "programs/helloworld.py"
+        runpy.run_path(path_name=TestProg)
         print("Code completed")
 else:
  # Authentication system
@@ -108,7 +112,8 @@ else:
         if attemps == 6:
         ## Brute force protection
            raise Exception("Too many password attempts. Because of the risk of a brute force attack, after 6 attempts, you will need to rerun LiuOS to try 6 more times.")
-        if os.environ.get('GITHUB_ACTIONS') == "true":
+        if os.environ.get('GITHUB_ACTIONS') != "":
+            logging.warning("Running on Github Actions")
             actualsys()
         elif username == cred.loginname and pwdreshash == cred.loginpass:
             print(lang.SUCCESSFUL_LOGIN)

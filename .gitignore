@@ -1,5 +1,6 @@
-# LiuOS files
-LiuOS.log
+# LiuOS logs
+*.log
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
