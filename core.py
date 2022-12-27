@@ -1,23 +1,31 @@
 # import stuff
-import hashlib
-import getpass
-import lang
-import cred
 import logging
-import os
-import sys
-import cmd
-import runpy
-# Log formatting
 FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
 logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
+logging.debug("Created logging config")
+import hashlib
+logging.debug("Imported hashlib")
+import getpass
+logging.debug("Imported getpass")
+import lang
+logging.debug("Imported lang.py")
+import cred
+logging.debug("Imported cred.py")
+import os
+logging.debug("Imported os")
+import sys
+logging.debug("Imported sys")
+import cmd
+logging.debug("Imported cmd")
+import runpy
+logging.debug("Imported runpy")
 
 class LiuShell(cmd.Cmd):
     intro = lang.SHELL_INTRO
     prompt = 'LiuOS: '
     file = None
 
-    # ----- basic turtle commands -----
+    # ----- LiuOS Shell commands -----
     def do_run(self, arg):
         'Runs the script specified, it must be in the same dir as LiuOS and exist, or Python will crash. Ex: run eteled.py'
         logging.info("Running command using run in shell")
