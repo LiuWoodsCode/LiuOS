@@ -1,6 +1,8 @@
 # LiuOS logs
 *.log
 
+# Stupid macOS/Unix file
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
