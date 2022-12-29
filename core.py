@@ -96,6 +96,7 @@ if os.environ.get('GITHUB_ACTIONS') == "true":
         print(lang.SAMPLE_ABC)
         print(lang.SAMPLE_STRING)
         TestProg = "programs/helloworld.py"
+        logging.debug("Launching test program")
         runpy.run_path(path_name=TestProg)
         print("Code completed")
 else:
