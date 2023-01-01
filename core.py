@@ -1,4 +1,5 @@
 # import stuff
+import requests
 import logging
 FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
 logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
@@ -55,6 +56,56 @@ class LiuShell(cmd.Cmd):
         logging.info("Shut down using shell command")
         exit()
         return True
+    # ----- ChatGPT Generated Commands
+    def do_webget(self, arg):
+        url = "http://www.example.com"
+        headers = {
+        "User-Agent": f"LiuOS{api.VerLiuOS}_webget"
+        }
+
+        response = requests.get(arg, headers=headers)
+        logging.debug(response.content)
+
+        resdata = response.text
+
+        print(lang.CHECK_LOG)
+    def do_ls(self, arg='.'):
+        'Lists fil in either the current directory, or a specified directory. Ex: ls /home/eteled/Python'
+        if arg == "":
+         lsout = os.listdir(".")
+         print(lsout)
+        else:
+         lsout = os.listdir(arg)
+         print(lsout)
+
+    def do_pwd(self, arg):
+        'Displays your current directory. Ex: pwd'
+        print(os.getcwd())
+
+    def do_cd(self, arg):
+        'Changes directory. Ex: cd programs'
+        os.chdir(arg)
+
+    def do_cp(self, arg):
+        'Copies a file specified in input fields when this command is run. Ex: cp'
+        src = input("Source File")
+        dst = input("Destination File")
+        with open(src, 'r') as f_src:
+            with open(dst, 'w') as f_dst:
+                f_dst.write(f_src.read())
+
+    def do_mv(self, arg):
+        'Moves a file specified in input fields when this command is run. Ex: cp'
+        src = input("Source File")
+        dst = input("Destination File")
+        with open(src, 'r') as f_src:
+            with open(dst, 'w') as f_dst:
+                f_dst.write(f_src.read())
+        os.remove(src)
+
+    def do_rm(self, arg):
+        os.remove(arg)
+
 
     # ----- record and playback -----
     def do_savecmd(self, arg):
