@@ -3,7 +3,7 @@ import os
 import requests
 ## API Starts here
 VerAPI = "0.0.1"
-VerLiuOS = "0.1.0"
+VerLiuOS = "0.1.1"
 DebugBuild = False
 RepoURL = "https://github.com/LiuWoodsCode/LiuOS"
 ## Handy GHA check variable
