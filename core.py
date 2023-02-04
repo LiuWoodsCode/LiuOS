@@ -1,5 +1,5 @@
 # import stuff
-import requests
+import http.client
 import logging
 FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
 logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
@@ -25,7 +25,7 @@ logging.debug("Imported runpy")
 
 class LiuShell(cmd.Cmd):
     intro = lang.SHELL_INTRO
-    prompt = 'LiuOS: '
+    prompt = lang.SHELL_PROMPT
     file = None
 
     # ----- LiuOS Shell commands -----
@@ -41,9 +41,6 @@ class LiuShell(cmd.Cmd):
         'Runs the script specified, it must be in the programs dir in the same dir as LiuOS and exist, or Python will crash. Ex: run eteled.py'
         logging.info(f"Running Python file using run in shell")
         runpy.run_path(path_name="programs/{arg}")
-    def do_clear(self, arg):
-        'Clears the terminal'
-        os.system('cls' if os.name == 'nt' else 'clear')
     def do_logout(self, arg):
         'Closes the shell. Ex: logout'
         logging.warning("Logging out shell session")
@@ -56,21 +53,18 @@ class LiuShell(cmd.Cmd):
         logging.info("Shut down using shell command")
         exit()
         return True
+
     # ----- ChatGPT Generated Commands
-    def do_webget(self, arg):
-        url = "http://www.example.com"
-        headers = {
-        "User-Agent": f"LiuOS{api.VerLiuOS}_webget"
-        }
-
-        response = requests.get(arg, headers=headers)
-        logging.debug(response.content)
-
-        resdata = response.text
-
-        print(lang.CHECK_LOG)
+    def do_webget(self, arg):    
+        'Makes a web request Can only use HTTPS if Python was compiled with SSL/TLS support. Ex: webget https://www.apple.com'
+        conn = http.client.HTTPSConnection(arg)
+        conn.request("GET", "/")
+        res = conn.getresponse()
+        data = res.read()
+        print(data.decode("utf-8"))
+        conn.close()
     def do_ls(self, arg='.'):
-        'Lists fil in either the current directory, or a specified directory. Ex: ls /home/eteled/Python'
+        'Lists files in either the current directory, or a specified directory. Ex: ls /home/eteled/Python'
         if arg == "":
          lsout = os.listdir(".")
          print(lsout)
@@ -88,15 +82,15 @@ class LiuShell(cmd.Cmd):
 
     def do_cp(self, arg):
         'Copies a file specified in input fields when this command is run. Ex: cp'
-        src = input("Source File")
-        dst = input("Destination File")
+        src = input(lang.SOURCE_FILE)
+        dst = input(lang.DEST_FILE)
         with open(src, 'r') as f_src:
             with open(dst, 'w') as f_dst:
                 f_dst.write(f_src.read())
 
     def do_mv(self, arg):
         'Moves a file specified in input fields when this command is run. Ex: cp'
-        src = input("Source File")
+        src = input(lang)
         dst = input("Destination File")
         with open(src, 'r') as f_src:
             with open(dst, 'w') as f_dst:
@@ -104,6 +98,11 @@ class LiuShell(cmd.Cmd):
         os.remove(src)
 
     def do_rm(self, arg):
+        'Removes the file or folder with the specified path. Ex: rm /home/serialkiller/murder/knife.jpg'
+        os.remove(arg)
+        
+    def do_clear(self, arg):
+        'Clears the screen'
         os.remove(arg)
 
 
