@@ -11,8 +11,8 @@ on:
 
 jobs:
   Build-ubuntu-2204:
-    name: "Build on Ubuntu 22.04"
-    runs-on: ubuntu-22.04
+    name: "Build on Ubuntu"
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -26,7 +26,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Internet check
       run: |
-        wget google.com --limit-rate 1k -d -v -U "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15"
+        wget liuwoodscode.github.io -d -v -U "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15"
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -60,14 +60,34 @@ jobs:
       shell: "pwsh"
       run: |
         python ./core.py
+        Get-Content ./LiuOS.log | $GITHUB_STEP_SUMMARY
         
   Build-macOS:
     name: "Build on macOS"
-    runs-on: macos-12
+    runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
         python-version: ["3.11"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Run the program
+      run: |
+        python ./core.py
+        cat ./LiuOS.log >> $GITHUB_STEP_SUMMARY
+
+  Build-macOS_System:
+    name: "Build on macOS (System version of Python as of Feb 2023)"
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9"]
 
     steps:
     - uses: actions/checkout@v3
