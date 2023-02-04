@@ -60,7 +60,7 @@ jobs:
       shell: "pwsh"
       run: |
         python ./core.py
-        Get-Content ./LiuOS.log | $GITHUB_STEP_SUMMARY
+        Get-Content ./LiuOS.log
         
   Build-macOS:
     name: "Build on macOS"
