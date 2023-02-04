@@ -6,7 +6,6 @@ import datetime
 import ctypes
 import tkinter as tk
 from tkinter import PhotoImage, filedialog, messagebox, StringVar
-from playsound import playsound
 ## LiuOS API v0.0.1
 ## API Starts here
 VerAPI = "0.1.0"
@@ -114,9 +113,6 @@ class LiuOSGraphicsAPI:
         label = tk.Label(self.root, image=img)
         label.image = img
         label.pack()
-
-    def play_sound(self, filepath):
-        playsound(filepath)
 
     def print_output(self, text):
         os.system("lpr -P printer_name " + text)
