@@ -1,9 +1,16 @@
 ## LiuOS API v0.0.1
+import http.client
 import os
-import requests
+import platform
+import datetime
+import ctypes
+import tkinter as tk
+from tkinter import PhotoImage, filedialog, messagebox, StringVar
+from playsound import playsound
+## LiuOS API v0.0.1
 ## API Starts here
-VerAPI = "0.0.1"
-VerLiuOS = "0.1.1"
+VerAPI = "0.1.0"
+VerLiuOS = "0.2.0"
 DebugBuild = False
 RepoURL = "https://github.com/LiuWoodsCode/LiuOS"
 ## Handy GHA check variable
@@ -11,13 +18,14 @@ if os.environ.get('GITHUB_ACTIONS') == "true":
     RunningActions = True
 else:
     RunningActions = False
-def webget(self, arg):
-        url = "http://www.example.com"
-        headers = {
-         "User-Agent": f"LiuOS{VerLiuOS}_webget"
-         }
-
-        response = requests.get(url, headers=headers)
+def do_webget(self, arg):    
+        'Makes a web request Can only use HTTPS if Python was compiled with SSL/TLS support.'
+        conn = http.client.HTTPSConnection(arg)
+        conn.request("GET", "/")
+        res = conn.getresponse()
+        data = res.read()
+        conn.close()
+        return data.decode("utf-8")
         
 def ls(self, arg='.'):
         'Lists fil in either the current directory, or a specified directory. Ex: ls /home/eteled/Python'
@@ -49,3 +57,84 @@ def mv(src, dst):
 
 def rm(self, arg):
         os.remove(arg)
+
+def get_version(self):
+        """Returns the version of the program."""
+        return {'version': self.version, 'api_version': self.api_version, 'build_date': self.build_date}
+
+def allocate_memory(self, memory_address, size, data):
+        """Allocates a block of memory of the specified size at the specified memory address and writes the specified data to it. Python for Windows only."""
+        # allocate memory
+        ptr = ctypes.windll.kernel32.VirtualAllocEx(ctypes.c_void_p(), memory_address, size, 0x1000 | 0x2000, 0x04)
+        # write data to the allocated memory
+        ctypes.windll.kernel32.WriteProcessMemory(ctypes.c_void_p(), ptr, data, len(data), None)
+        return ptr
+
+def read_file(self, file_path):
+        """Reads the contents of the specified file."""
+        with open(file_path, 'r') as file:
+            return file.read()
+
+def write_file(self, file_path, data):
+        """Writes the specified data to the specified file."""
+        with open(file_path, 'w') as file:
+            file.write(data)
+
+def get_process_list(self):
+        """Returns a list of all running processes. Python for Windows only, unless you've got tasklist on a Linux/Unix system."""
+        process_list = []
+        for process in os.popen('tasklist'):
+            process_list.append(process.split()[0])
+        return process_list
+
+def kill_process(self, process_name):
+        """Kills the process with the specified name. Python for Windows only, unless you've got taskkill /f /im on a Linux/Unix system."""
+        os.system('taskkill /f /im ' + process_name)
+
+def get_system_info(self):
+        """ Returns the system information"""
+        return {'system': platform.system(), 'release': platform.release(), 'version': platform.version(),
+                'machine': platform.machine(), 'processor': platform.processor()}
+                
+def get_memory_info(self):
+        """Returns the system memory information"""
+        memory_info = os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES')  / (1024. ** 3)
+        return {'total': memory_info}
+
+class LiuOSGraphicsAPI:
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.title("Graphics API")
+
+    def open_window(self):
+        self.root.mainloop()
+
+    def display_image(self, filepath):
+        img = PhotoImage(file=filepath)
+        label = tk.Label(self.root, image=img)
+        label.image = img
+        label.pack()
+
+    def play_sound(self, filepath):
+        playsound(filepath)
+
+    def print_output(self, text):
+        os.system("lpr -P printer_name " + text)
+
+    def open_dialog_box(self, title, message):
+        messagebox.showinfo(title, message)
+
+    def open_text_box(self):
+        text_var = StringVar()
+        entry = tk.Entry(self.root, textvariable=text_var)
+        entry.pack()
+        return text_var
+
+    def open_file_picker(self):
+        filepath = filedialog.askopenfilename()
+        return filepath
+
+    def open_folder_picker(self):
+        folderpath = filedialog.askdirectory()
+        return folderpath
+## Handy GHA check variable
