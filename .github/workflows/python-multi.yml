@@ -26,6 +26,8 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Run the thing
+      env:
+        Cmd: uname -a
       run: |
         python ./core.py
         cat ./LiuOS.log

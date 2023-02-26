@@ -143,6 +143,13 @@ if os.environ.get('GITHUB_ACTIONS') == "true":
         print(lang.FAKE_SUCCESSFUL_LOGIN)
         logging.warning("Fake login completed")
         print(lang.SHELL_INTRO)
+        print("LiuOS: pwd")
+        LiuShell().do_pwd("test")
+        print("LiuOS: ls")
+        LiuShell().do_ls()
+        cmd_run = os.getenv("Cmd")
+        LiuShell().do_runcmd(cmd_run)
+        print("Sample strings:")
         print(lang.SAMPLE_ABC)
         print(lang.SAMPLE_STRING)
         TestProg = "programs/helloworld.py"
