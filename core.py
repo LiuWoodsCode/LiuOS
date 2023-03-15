@@ -22,6 +22,7 @@ import cmd
 logging.debug("Imported cmd")
 import runpy
 logging.debug("Imported runpy")
+import time
 
 class LiuShell(cmd.Cmd):
     intro = lang.SHELL_INTRO
@@ -44,12 +45,12 @@ class LiuShell(cmd.Cmd):
     def do_logout(self, arg):
         'Closes the shell. Ex: logout'
         logging.warning("Logging out shell session")
-        print('Logging out...')
+        print(lang.LOGGING_OUT)
         self.close()
         return True
     def do_shutdown(self, arg):
         'Closes the shell, and quits the script. Ex: shutdown'
-        print('Logging out...')
+        print(lang.LOGGING_OUT)
         logging.info("Shut down using shell command")
         exit()
         return True
@@ -169,7 +170,12 @@ else:
         logging.debug('Generated hash of password')
         if attemps == 6:
         ## Brute force protection
-           raise Exception("Too many password attempts. Because of the risk of a brute force attack, after 6 attempts, you will need to rerun LiuOS to try 6 more times.")
+           logging.fatal("6 or more incorrect credentials entered")
+           print("credhandler: too many attempts")
+           time.sleep(10)
+           print("System froze and timed out")
+           print("The system will panic NOW!")
+           raise Exception(lang.BRUTE_FORCE_CRASH)
         if os.environ.get('GITHUB_ACTIONS') == "true":
             logging.warning("Running on Github Actions")
             actualsys()
