@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: '0 */14 * * *'
 
 jobs:
   Build-ubuntu-2204:
