@@ -61,7 +61,7 @@ class LiuShell(cmd.Cmd):
         exit()
         return True
     def do_exit(self, arg);
-        do_shutdown
+        do_shutdown()
 
     # ----- ChatGPT Generated Commands
     def do_webget(self, arg):    
