@@ -1,4 +1,8 @@
 # import stuff
+username = ""
+crash_times = 0
+ERROR_CODE = "UNKNOWN_ERROR"
+should_crash = True
 import http.client
 import logging
 FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
@@ -22,10 +26,13 @@ import cmd
 logging.debug("Imported cmd")
 import runpy
 logging.debug("Imported runpy")
+import time
+import traceback
 
 class LiuShell(cmd.Cmd):
+    
     intro = lang.SHELL_INTRO
-    prompt = lang.SHELL_PROMPT
+    prompt = f"{cred.loginname}@{lang.hostname}-LiuOS $ "
     file = None
 
     # ----- LiuOS Shell commands -----
@@ -44,15 +51,17 @@ class LiuShell(cmd.Cmd):
     def do_logout(self, arg):
         'Closes the shell. Ex: logout'
         logging.warning("Logging out shell session")
-        print('Logging out...')
+        print(lang.LOGGING_OUT)
         self.close()
         return True
     def do_shutdown(self, arg):
         'Closes the shell, and quits the script. Ex: shutdown'
-        print('Logging out...')
+        print(lang.LOGGING_OUT)
         logging.info("Shut down using shell command")
         exit()
         return True
+    def do_exit(self, arg);
+        do_shutdown
 
     # ----- ChatGPT Generated Commands
     def do_webget(self, arg):    
@@ -63,6 +72,8 @@ class LiuShell(cmd.Cmd):
         data = res.read()
         print(data.decode("utf-8"))
         conn.close()
+    def do_ver(self, arg):
+        print(lang.VersionOutput)
     def do_ls(self, arg='.'):
         'Lists files in either the current directory, or a specified directory. Ex: ls /home/eteled/Python'
         if arg == "":
@@ -90,8 +101,8 @@ class LiuShell(cmd.Cmd):
 
     def do_mv(self, arg):
         'Moves a file specified in input fields when this command is run. Ex: cp'
-        src = input(lang)
-        dst = input("Destination File")
+        src = input(lang.SOURCE_FILE)
+        dst = input(lang.DEST_FILE)
         with open(src, 'r') as f_src:
             with open(dst, 'w') as f_dst:
                 f_dst.write(f_src.read())
@@ -103,7 +114,7 @@ class LiuShell(cmd.Cmd):
         
     def do_clear(self, arg):
         'Clears the screen'
-        os.remove(arg)
+        os.system('cls' if os.name == 'nt' else 'clear')
 
 
     # ----- record and playback -----
@@ -158,18 +169,21 @@ if os.environ.get('GITHUB_ACTIONS') == "true":
         print("Code completed")
 else:
  # Authentication system
-
-       while attemps < 7:
+ print(f"LiuOS {api.VerLiuOS}")
+ while attemps < 7:
+    try:
         username = input(lang.ENTER_USERNAME_LOGIN)
-        logging.debug('Entered username')
+        logging.debug(f'Entered username {username}')
         password = getpass.getpass(lang.ENTER_PASSWD_LOGIN)
         logging.debug('Entered password')
         bytehash = hashlib.sha3_512(password.encode())
         pwdreshash = bytehash.hexdigest()
         logging.debug('Generated hash of password')
         if attemps == 6:
-        ## Brute force protection
-           raise Exception("Too many password attempts. Because of the risk of a brute force attack, after 6 attempts, you will need to rerun LiuOS to try 6 more times.")
+            ## Brute force protection
+            logging.fatal("6 or more incorrect credentials entered")
+            ERROR_CODE = "CRED_FORCE_ERROR"
+            raise Exception(lang.BRUTE_FORCE_CRASH)
         if os.environ.get('GITHUB_ACTIONS') == "true":
             logging.warning("Running on Github Actions")
             actualsys()
@@ -182,4 +196,31 @@ else:
             logging.error("Incorrect login credentials")
             attemps += 1
             continue
+    except Exception as e:
+        os.system('cls' if os.name == 'nt' else 'clear')    
+        error_code = 0
+        trace = traceback.format_exc()
+        error_description = str(e)
+        error_code = hash(error_description)
+        error_description = f"0x100{abs(error_code) % 256:02x}"
         
+        print(f"\n;(\nA fatal error has occurred causing an exception. LiuOS has stopped to prevent data corruption or other issues.\n\nError code: {error_description}\n\nDescription of error: {e}")
+        if should_crash:
+            if crash_times == 0:
+                print("\nNote: LiuOS has crashed more than once in this Python instance. \nTo attempt to fix the issue, try restarting Python. \nIf the bugcheck reoccurs, file a bug report with the traceback in your LiuOS.log file.\n")
+            FORMAT = 'CRASH | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
+            logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
+            crashlog = f"Crashed with code {error_description}"
+            logging.fatal(f"Code: {error_description}.\n {trace}")
+            print("System will reset in 15 sec!")
+            time.sleep(15)
+            FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
+            logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
+            attemps = 0
+            error_code = ""
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print(f"LiuOS {api.VerLiuOS}\nInfo: System recovered from bugcheck {error_description}")
+            error_description = ""
+            crash_times = 1
+        else:
+            print("WARN: Crash Bypass")
