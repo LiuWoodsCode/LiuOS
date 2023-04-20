@@ -60,8 +60,9 @@ class LiuShell(cmd.Cmd):
         logging.info("Shut down using shell command")
         exit()
         return True
-    def do_exit(self, arg);
-        do_shutdown()
+    def do_exit(self, arg):
+        'Exits the shell'
+        LiuShell.do_shutdown(self,None)
 
     # ----- ChatGPT Generated Commands
     def do_webget(self, arg):    
@@ -73,6 +74,7 @@ class LiuShell(cmd.Cmd):
         print(data.decode("utf-8"))
         conn.close()
     def do_ver(self, arg):
+        "Shows version info"
         print(lang.VersionOutput)
     def do_ls(self, arg='.'):
         'Lists files in either the current directory, or a specified directory. Ex: ls /home/eteled/Python'
