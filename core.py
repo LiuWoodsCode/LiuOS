@@ -208,7 +208,7 @@ else:
         
         print(f"\n;(\nA fatal error has occurred causing an exception. LiuOS has stopped to prevent data corruption or other issues.\n\nError code: {error_description}\n\nDescription of error: {e}")
         if should_crash:
-            if crash_times == 0:
+            if crash_times == 1:
                 print("\nNote: LiuOS has crashed more than once in this Python instance. \nTo attempt to fix the issue, try restarting Python. \nIf the bugcheck reoccurs, file a bug report with the traceback in your LiuOS.log file.\n")
             FORMAT = 'CRASH | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
             logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
