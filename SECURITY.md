@@ -18,10 +18,10 @@ Once the issue has been patched, the LiuOS maintainers can request a Common Vuln
 
 | Version | Supported |
 |---------|-----------|
-| 0.2.0    | Yes       |
-| 0.1.7     | For high severity exploits only        |
-| 0.1.6     | For critical exploits only        |
-| 0.1.5 and below     | No     |
+| 0.2.5    | Yes       |
+| 0.2.0     | For high severity exploits only        |
+| 0.1.9     | For critical exploits only        |
+| 0.1.8 and below     | No     |
 
 Thank you for helping us keep LiuOS and its users secure.
 
