@@ -9,7 +9,7 @@ from tkinter import PhotoImage, filedialog, messagebox, StringVar
 ## LiuOS API v0.0.1
 ## API Starts here
 VerAPI = "0.1.5"
-VerLiuOS = "0.2.5"
+VerLiuOS = "0.2.6"
 DebugBuild = False
 RepoURL = "https://github.com/LiuWoodsCode/LiuOS"
 ## Handy GHA check variable
