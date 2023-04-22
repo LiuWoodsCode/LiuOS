@@ -47,7 +47,7 @@ class LiuShell(cmd.Cmd):
     def do_run(self, arg):
         'Runs the script specified, it must be in the programs dir in the same dir as LiuOS and exist, or Python will crash. Ex: run eteled.py'
         logging.info(f"Running Python file using run in shell")
-        runpy.run_path(path_name="programs/{arg}")
+        runpy.run_path(path_name=f"programs/{arg}")
     def do_logout(self, arg):
         'Closes the shell. Ex: logout'
         logging.warning("Logging out shell session")
@@ -75,7 +75,12 @@ class LiuShell(cmd.Cmd):
         conn.close()
     def do_ver(self, arg):
         "Shows version info"
-        print(lang.VersionOutput)
+        verhash = hashlib.sha512(arg.encode())
+        eggreshash = verhash.hexdigest()
+        if eggreshash == "cce4f1f446e397677f525ade22c85bfc8737da9c7606d10d67802aa6513137e46a83ab46a480e6bcc4044b6080b4f3bab112841d2b949e49c4006718ce231c11":
+            print("Thanks for the complement!. I'm just a solo developer and really appreciate it!")
+        else:
+            print(lang.VersionOutput)
     def do_ls(self, arg='.'):
         'Lists files in either the current directory, or a specified directory. Ex: ls /home/eteled/Python'
         if arg == "":

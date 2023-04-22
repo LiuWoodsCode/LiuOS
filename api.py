@@ -59,7 +59,7 @@ def rm(self, arg):
 
 def get_version(self):
         """Returns the version of the program."""
-        return {'version': self.version, 'api_version': self.api_version, 'build_date': self.build_date}
+        return {'version': self.version, 'api_version': self.api_version}
 
 def allocate_memory(self, memory_address, size, data):
         """Allocates a block of memory of the specified size at the specified memory address and writes the specified data to it. Python for Windows only."""
