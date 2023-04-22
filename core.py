@@ -1,5 +1,7 @@
 # import stuff
+IsFound = False
 username = ""
+currentdir = ""
 crash_times = 0
 ERROR_CODE = "UNKNOWN_ERROR"
 should_crash = True
@@ -28,13 +30,17 @@ import runpy
 logging.debug("Imported runpy")
 import time
 import traceback
+from termcolor import colored
+hostname_color = colored(f'{cred.loginname}@{lang.hostname}-LiuOS', 'light_green')
+currentdir = os.getcwd()
+dir_color = colored(f'{currentdir}', 'light_blue')
 
 class LiuShell(cmd.Cmd):
     
     intro = lang.SHELL_INTRO
-    prompt = f"{cred.loginname}@{lang.hostname}-LiuOS $ "
+    prompt = f"{hostname_color}:{dir_color}$ "
     file = None
-
+    doc_header = lang.HELP_HEADER
     # ----- LiuOS Shell commands -----
     def do_runcmd(self, arg):
         'Runs the host shell command specified. Ex: runcmd echo'
@@ -96,7 +102,23 @@ class LiuShell(cmd.Cmd):
 
     def do_cd(self, arg):
         'Changes directory. Ex: cd programs'
-        os.chdir(arg)
+        currentdir = os.getcwd()
+        for name in os.listdir(currentdir):
+            if name.lower() == arg:
+                # found the directory
+                dir_path = os.path.join(currentdir, name)
+                os.chdir(dir_path)
+                IsFound = True
+            else:
+                if arg == "..":
+                   dir_path = os.path.join(currentdir, "..") 
+                else: 
+                   logging.info("Dir not found")
+        os.chdir(dir_path)
+        hostname_color = colored(f'{cred.loginname}@{lang.hostname}-LiuOS', 'light_green')
+        currentdir = os.getcwd()
+        dir_color = colored(f'{currentdir}', 'light_blue')
+        self.prompt = f"{hostname_color}:{dir_color}$ "
 
     def do_cp(self, arg):
         'Copies a file specified in input fields when this command is run. Ex: cp'

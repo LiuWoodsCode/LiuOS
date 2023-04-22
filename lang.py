@@ -1,7 +1,9 @@
 import platform
 import api
 import socket
+from termcolor import colored
 hostname = socket.gethostname()
+hostname_color = colored(f'Hello, World!', 'green', attrs=['reverse', 'blink'])
 python = platform.python_version()
 lowlevelos = platform.platform()
 ## English Language for LiuOS
@@ -24,6 +26,7 @@ SAMPLE_STRING = "Henry Morris = Eteled"
 # LiuOS Shell
 SHELL_PROMPT = "LiuOS $ "
 SHELL_INTRO = f"LiuOS Shell, running on kernel version Python {python}.\nType help or ? to list available commands.\n"
+HELP_HEADER = f"LiuOS commands in this current build ({api.VerLiuOS}). Type \"help (command)\" for details about a command."
 # Commands 
 # Version
 VersionOutput = f"LiuOS {api.VerLiuOS}\nLiuOS API {api.VerAPI}\nLiuOS Language Pack {CURRENT_LANG} {LANG_VER}\n---------------------\nKernel (Python) version: {python}\nLow level OS: {lowlevelos}"
