@@ -34,3 +34,8 @@ VersionOutput = f"LiuOS {api.VerLiuOS}\nLiuOS API {api.VerAPI}\nLiuOS Language P
 CHECK_LOG = "Request output saved to your log file."
 # Shut Down
 LOGGING_OUT = "Logging out..."
+# Updates - For future use
+UPDATECORE_RECOVERY = "recovery"
+RECOVERY_MODE_WARN = "You are entering recovery mode. LiuWoodsCode is not responsible for any damage caused in Recovery Mode. Continue at your own risk."
+UPDATING_MSG = "Updating LiuOS..."
+RECOVERY_START = "Starting LiuOS Recovery..."

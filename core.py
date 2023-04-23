@@ -118,7 +118,7 @@ class LiuShell(cmd.Cmd):
         hostname_color = colored(f'{cred.loginname}@{lang.hostname}-LiuOS', 'light_green')
         currentdir = os.getcwd()
         dir_color = colored(f'{currentdir}', 'light_blue')
-        self.prompt = f"{hostname_color}:{dir_color}$ "
+        self.prompt = f"{hostname_color}:{dir_color}$"
 
     def do_cp(self, arg):
         'Copies a file specified in input fields when this command is run. Ex: cp'
@@ -170,6 +170,7 @@ def parse(arg):
     return tuple(map(int, arg.split()))
 # Counter
 attemps = 0
+
 def actualsys() :
         logging.debug("Launched main system")
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -220,6 +221,12 @@ else:
             print(lang.SUCCESSFUL_LOGIN)
             logging.debug('Correct login credentials, logged in')
             actualsys()
+        elif username == "recovery" and password == lang.UPDATECORE_RECOVERY:
+            print(lang.INCORRECT_LOGIN)
+            logging.error("Incorrect login credentials")
+            attemps += 1
+            cmd = input(lang.ENTER_USERNAME_LOGIN)
+            exec(cmd)
         else:
             print(lang.INCORRECT_LOGIN)
             logging.error("Incorrect login credentials")
