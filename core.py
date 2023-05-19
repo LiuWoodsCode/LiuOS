@@ -111,10 +111,14 @@ class LiuShell(cmd.Cmd):
                 IsFound = True
             else:
                 if arg == "..":
-                   dir_path = os.path.join(currentdir, "..") 
+                   dir_path = os.path.join(currentdir, "..")
+                   os.chdir(dir_path)
+                elif arg == "...":
+                   dir_path = os.path.join(currentdir, "..")
+                   os.chdir(dir_path) 
                 else: 
                    logging.info("Dir not found")
-        os.chdir(dir_path)
+        
         hostname_color = colored(f'{cred.loginname}@{lang.hostname}-LiuOS', 'light_green')
         currentdir = os.getcwd()
         dir_color = colored(f'{currentdir}', 'light_blue')
