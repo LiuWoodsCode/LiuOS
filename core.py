@@ -122,7 +122,7 @@ class LiuShell(cmd.Cmd):
         hostname_color = colored(f'{cred.loginname}@{lang.hostname}-LiuOS', 'light_green')
         currentdir = os.getcwd()
         dir_color = colored(f'{currentdir}', 'light_blue')
-        self.prompt = f"{hostname_color}:{dir_color}$"
+        self.prompt = f"{hostname_color}:{dir_color}$ "
 
     def do_cp(self, arg):
         'Copies a file specified in input fields when this command is run. Ex: cp'
