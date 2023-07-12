@@ -2,9 +2,10 @@ import platform
 import api
 import socket
 IsDebug = True
+IsInternal = False
 from termcolor import colored
 def get_release_channel() :
-    if IsDebug:
+    if IsInternal:
         return "Debug"
     else:
         return "Production"
