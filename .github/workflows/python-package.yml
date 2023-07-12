@@ -92,7 +92,7 @@ jobs:
       run: |
         pip install termcolor
     - name: Set up the credential file
-      env:
+      
       run: |
         python ./setup.py
     - name: Run the thing
@@ -121,7 +121,7 @@ jobs:
       run: |
         pip install termcolor
     - name: Set up the credential file
-      env:
+      
       run: |
         python ./setup.py
     - name: Run the thing
