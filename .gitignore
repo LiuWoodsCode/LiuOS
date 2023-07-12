@@ -1,5 +1,10 @@
 # LiuOS logs
 *.log
+*.py~
+
+# Personal stuff
+programs/ShellAPI
+defaultcred.py
 
 # Stupid macOS/Unix file
 .DS_Store
@@ -12,6 +17,8 @@ __pycache__/
 # C extensions
 *.so
 
+# Some VS Code stuff
+.vs/
 # Distribution / packaging
 .Python
 build/
@@ -164,3 +171,4 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+cred.py

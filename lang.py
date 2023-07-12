@@ -1,16 +1,24 @@
 import platform
 import api
 import socket
+IsDebug = True
 from termcolor import colored
+def get_release_channel() :
+    if IsDebug:
+        return "Debug"
+    else:
+        return "Production"
 hostname = socket.gethostname()
 hostname_color = colored(f'Hello, World!', 'green', attrs=['reverse', 'blink'])
 python = platform.python_version()
 lowlevelos = platform.platform()
 ## English Language for LiuOS
 CURRENT_LANG = "EngUS"
-LANG_VER = 1.5
+LANG_VER = 2.0
 CURRENT_LONG_LANG = "English (US)"
 # Authentication
+ENTER_USERNAME_CREATION = "Enter a username, keep blank to use \"username\": "
+ENTER_PASSWD_CREATION = "Enter a password: "
 ENTER_USERNAME_LOGIN = "Enter your username: "
 ENTER_PASSWD_LOGIN = "Enter your password: "
 INCORRECT_LOGIN = "Incorrect credentials. Check your Caps Lock and locale settings and try again."
@@ -29,7 +37,7 @@ SHELL_INTRO = f"LiuOS Shell, running on kernel version Python {python}.\nType he
 HELP_HEADER = f"LiuOS commands in this current build ({api.VerLiuOS}). Type \"help (command)\" for details about a command."
 # Commands 
 # Version
-VersionOutput = f"LiuOS {api.VerLiuOS}\nLiuOS API {api.VerAPI}\nLiuOS Language Pack {CURRENT_LANG} {LANG_VER}\n---------------------\nKernel (Python) version: {python}\nLow level OS: {lowlevelos}"
+VersionOutput = f"LiuOS {api.VerLiuOS}\nLiuOS API {api.VerAPI}\nLiuOS Language Pack {CURRENT_LANG} {LANG_VER}\nRelease Type: {get_release_channel()}\n-----------------------\nKernel (Python) version: {python}\nLow level OS: {lowlevelos}"
 # WebGet
 CHECK_LOG = "Request output saved to your log file."
 # Shut Down

@@ -4,12 +4,10 @@ import os
 import platform
 import datetime
 import ctypes
-import tkinter as tk
-from tkinter import PhotoImage, filedialog, messagebox, StringVar
 ## LiuOS API v0.0.1
 ## API Starts here
 VerAPI = "0.1.5"
-VerLiuOS = "0.2.6"
+VerLiuOS = "0.3.0"
 DebugBuild = False
 RepoURL = "https://github.com/LiuWoodsCode/LiuOS"
 ## Handy GHA check variable
@@ -102,35 +100,26 @@ def get_memory_info(self):
 
 class LiuOSGraphicsAPI:
     def __init__(self):
-        self.root = tk.Tk()
-        self.root.title("Graphics API")
+        print("The graphics API is depercated. Any calls to functions will fail.")
 
     def open_window(self):
-        self.root.mainloop()
+        raise Exception("usage of depercated API")
 
     def display_image(self, filepath):
-        img = PhotoImage(file=filepath)
-        label = tk.Label(self.root, image=img)
-        label.image = img
-        label.pack()
+        raise Exception("usage of depercated API")
 
     def print_output(self, text):
-        os.system("lpr -P printer_name " + text)
+        raise Exception("usage of depercated API")
 
     def open_dialog_box(self, title, message):
-        messagebox.showinfo(title, message)
+        raise Exception("usage of depercated API")
 
     def open_text_box(self):
-        text_var = StringVar()
-        entry = tk.Entry(self.root, textvariable=text_var)
-        entry.pack()
-        return text_var
+        raise Exception("usage of depercated API")
 
     def open_file_picker(self):
-        filepath = filedialog.askopenfilename()
-        return filepath
+        raise Exception("usage of depercated API")
 
     def open_folder_picker(self):
-        folderpath = filedialog.askdirectory()
-        return folderpath
+        raise Exception("usage of depercated API")
 ## Handy GHA check variable
