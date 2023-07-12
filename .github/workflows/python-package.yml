@@ -63,13 +63,16 @@ jobs:
     - name: Install things from pip
       run: |
         pip install termcolor
-    - name: Run the program
-      shell: "pwsh"
-      env:
-        Cmd: ver
+    - name: Set up the credential file
+      shell: pwsh
+      run: |
+        python ./setup.py
+    - name: Run the thing
+      shell: pwsh
       run: |
         python ./core.py
-        Get-Content ./LiuOS.log
+        cat ./LiuOS.log
+
         
   Build-macOS:
     name: "Build on macOS"
@@ -88,12 +91,17 @@ jobs:
     - name: Install things from pip
       run: |
         pip install termcolor
-    - name: Run the program
+    - name: Set up the credential file
+      env:
+      run: |
+        python ./setup.py
+    - name: Run the thing
       env:
         Cmd: uname -a
       run: |
         python ./core.py
-        cat ./LiuOS.log >> $GITHUB_STEP_SUMMARY
+        cat ./LiuOS.log
+
 
   Build-macOS_System:
     name: "Build on macOS (System version of Python as of Feb 2023)"
@@ -112,9 +120,14 @@ jobs:
     - name: Install things from pip
       run: |
         pip install termcolor
-    - name: Run the program
+    - name: Set up the credential file
+      env:
+      run: |
+        python ./setup.py
+    - name: Run the thing
       env:
         Cmd: uname -a
       run: |
         python ./core.py
-        cat ./LiuOS.log >> $GITHUB_STEP_SUMMARY
+        cat ./LiuOS.log
+

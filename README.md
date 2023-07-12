@@ -74,7 +74,7 @@ For example, Windows 11 isn't running from the UEFI of your PC, what's running i
 7. Test the Python program: Before proceeding to set up the startup, test your Python program to ensure it runs correctly. Run the program using the Python interpreter:
 
    ```
-   python3 core,py
+   python3 setup.py
    ```
 
 
