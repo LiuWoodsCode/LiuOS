@@ -18,8 +18,6 @@ import getpass
 logging.debug("Imported getpass")
 import lang
 logging.debug(f"Loaded LiuOS {lang.CURRENT_LANG}")
-import cred
-logging.debug("Imported cred.py")
 import os
 logging.debug("Imported os")
 def rename_file_if_not_exists(filename, new_filename):
@@ -32,6 +30,8 @@ def rename_file_if_not_exists(filename, new_filename):
     else:
         return True
 rename_file_if_not_exists("defaultcred.py", "cred.py")
+import cred
+logging.debug("Imported cred.py")
 import sys
 logging.debug("Imported sys")
 import cmd
