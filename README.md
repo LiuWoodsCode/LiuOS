@@ -21,6 +21,14 @@ in your terminal, at the directory you want a "LiuOS" folder in and start hackin
 
 While you might not exactly be able to learn from my code, it does show some of the fundamentals of Python, and stuff like exception handling and authentication.
 
+## Troubleshooting
+
+### Why can't it find the `cred` module?
+
+In short, this is caused by issues in Git not allowing us to have a file on GitHub, while having `gitignore` file ignore changes to it. 
+
+To fix the missing module, run `python3 setup.py` while in the directory that contains the LiuOS repository. This will copy the template file over to `cred.py` and allow LiuOS to start.
+
 ## Can I boot this on my PC?
 
 
