@@ -1,6 +1,41 @@
 import platform
 import api
 import socket
+import random
+import datetime
+
+def set_fuckspez_remark():
+    # Get the current date
+    today = datetime.date.today()
+    
+    # Define the chances of each case
+    chance_normal = 1 / 50
+    chance_special = 1 / 7
+
+    # Check if it's July 1st
+    is_july_1st = today.month == 7 and today.day == 1
+
+    # Check if it's a special day (July 1st)
+    if is_july_1st:
+        if random.random() < chance_special:
+            variable = "RIP, Apollo for Reddit - "
+        else:
+            variable = None
+    else:
+        # Check for the normal case
+        if random.random() < chance_normal:
+            variable = "fuck u/spez - "
+        else:
+            variable = None
+
+    if variable == None:
+        variable = ""
+
+    return variable
+
+# Test the function
+result = set_fuckspez_remark()
+
 IsDebug = True
 IsInternal = False
 from termcolor import colored
@@ -18,6 +53,8 @@ CURRENT_LANG = "EngUS"
 LANG_VER = 2.0
 CURRENT_LONG_LANG = "English (US)"
 # Authentication
+OS_NAME_LOGIN = f"{result}LiuOS {api.VerLiuOS}"
+CHANGE_CREDENTIAL_ALERT = "You have not set up user credentials. The default username is \"username\", and the password is \"password\".\nWhen you log in, run the \"changecred\" command to change the username and password."
 ENTER_USERNAME_CREATION = "Enter a username, keep blank to use \"username\": "
 ENTER_PASSWD_CREATION = "Enter a password: "
 ENTER_USERNAME_LOGIN = "Enter your username: "

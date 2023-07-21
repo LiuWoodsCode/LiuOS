@@ -40,6 +40,10 @@ hostname_color = colored(f'{cred.loginname}@{lang.hostname}-LiuOS', 'light_green
 currentdir = os.getcwd()
 dir_color = colored(f'{currentdir}', 'light_blue')
 
+# Easter egg, now in your logs!
+if lang.result != "":
+    logging.info(lang.result)
+
 # Our shell class
 class LiuShell(cmd.Cmd):
     
@@ -228,9 +232,9 @@ def run_liuos_system():
         print("Code completed")
     else:
         # Authentication system
-        print(f"LiuOS {api.VerLiuOS}")
+        print(lang.OS_NAME_LOGIN)
         if cred.loginpass == "e9a75486736a550af4fea861e2378305c4a555a05094dee1dca2f68afea49cc3a50e8de6ea131ea521311f4d6fb054a146e8282f8e35ff2e6368c1a62e909716":
-            print("You have not set up user credentials. The default username is \"username\", and the password is \"password\".\nWhen you log in, run the \"changecred\" command to change the username and password.")
+            print(lang.CHANGE_CREDENTIAL_ALERT)
         crash_times = 0
         attempts = 0
         while attempts < 7:
