@@ -30,7 +30,7 @@ jobs:
         pip install termcolor
     - name: Set up the credential file
       run: |
-        python ./setup.py
+        cp -- "defaultcred.py" "cred.py"
     - name: Run the thing
       env:
         Cmd: uname -a
