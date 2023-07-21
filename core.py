@@ -9,7 +9,7 @@ import http.client
 import logging
 FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
 logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
-logging.debug("Created logging config")
+logging.debug("Starting LiuOS")
 import api
 logging.debug(f"Loaded LiuOS API {api.VerAPI}")
 import hashlib
@@ -232,6 +232,7 @@ def run_liuos_system():
         print("Code completed")
     else:
         # Authentication system
+        os.system('cls' if os.name == 'nt' else 'clear')
         print(lang.OS_NAME_LOGIN)
         if cred.loginpass == "e9a75486736a550af4fea861e2378305c4a555a05094dee1dca2f68afea49cc3a50e8de6ea131ea521311f4d6fb054a146e8282f8e35ff2e6368c1a62e909716":
             print(lang.CHANGE_CREDENTIAL_ALERT)

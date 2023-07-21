@@ -3,6 +3,11 @@ import api
 import socket
 import random
 import datetime
+import logging
+build_add = "07-21-23"
+logging.info(f"Build date: {build_add}")
+logging.info(f"API Version: {api.VerAPI}")
+logging.info(f"LiuOS Version: {api.VerLiuOS}")
 
 def set_fuckspez_remark():
     # Get the current date
