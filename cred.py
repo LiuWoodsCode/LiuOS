@@ -1,2 +1,4 @@
-loginname = "liuwoods"
-loginpass = "64d09d9930c8ecf79e513167a588cb75439b762ce8f9b22ea59765f32aa74ca19d2f1e97dc922a3d4954594a05062917fb24d1f8e72f2ed02a58ed7534f94d27"
+## Sample Credentials - Change these!
+loginname = "username"
+## SHA512 hash of your password (default is "password", no quotes)
+loginpass = "e9a75486736a550af4fea861e2378305c4a555a05094dee1dca2f68afea49cc3a50e8de6ea131ea521311f4d6fb054a146e8282f8e35ff2e6368c1a62e909716"
