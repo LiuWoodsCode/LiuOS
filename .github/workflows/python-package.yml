@@ -44,6 +44,7 @@ jobs:
       env: 
         Cmd: uname -a
       run: |
+        cp -- "defaultcred.py" "cred.py"
         python ./core.py
         cat ./LiuOS.log >> $GITHUB_STEP_SUMMARY
   Build-Windows-Server:
@@ -70,6 +71,7 @@ jobs:
     - name: Run the thing
       shell: pwsh
       run: |
+        copy defaultcred.py cred.py
         python ./core.py
         cat ./LiuOS.log
 
@@ -99,6 +101,7 @@ jobs:
       env:
         Cmd: uname -a
       run: |
+        cp -- "defaultcred.py" "cred.py"
         python ./core.py
         cat ./LiuOS.log
 
@@ -128,6 +131,7 @@ jobs:
       env:
         Cmd: uname -a
       run: |
+        cp -- "defaultcred.py" "cred.py"
         python ./core.py
         cat ./LiuOS.log
 
