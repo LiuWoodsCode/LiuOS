@@ -20,7 +20,6 @@ import lang
 logging.debug(f"Loaded LiuOS {lang.CURRENT_LANG}")
 import os
 logging.debug("Imported os")
-
 import cred
 logging.debug("Imported cred.py")
 import sys
@@ -86,16 +85,19 @@ loginpass = \"{pwdreshash1}\""""
         'Closes the shell. Ex: logout'
         logging.warning("Logging out shell session")
         print(lang.LOGGING_OUT)
+        # We just close the shell connection
         self.close()
         return True
     def do_shutdown(self, arg):
         'Closes the shell, and quits the script. Ex: shutdown'
         print(lang.LOGGING_OUT)
         logging.info("Shut down using shell command")
+        # We just run the exit() function, like what you call in the Python she;;
         exit()
         return True
     def do_exit(self, arg):
         'Exits the shell'
+        # Just an ailas to do_shutdown until I can make it shut down the system
         LiuShell.do_shutdown(self,None)
 
     # ----- ChatGPT Generated Commands
@@ -111,9 +113,11 @@ loginpass = \"{pwdreshash1}\""""
         "Shows version info"
         verhash = hashlib.sha512(arg.encode())
         eggreshash = verhash.hexdigest()
+        # an easter egg
         if eggreshash == "cce4f1f446e397677f525ade22c85bfc8737da9c7606d10d67802aa6513137e46a83ab46a480e6bcc4044b6080b4f3bab112841d2b949e49c4006718ce231c11":
             print("Thanks for the complement!. I'm just a solo developer and really appreciate it!")
         else:
+            # all we do is print the var in the language pack
             print(lang.VersionOutput)
     def do_ls(self, arg='.'):
         'Lists files in either the current directory, or a specified directory. Ex: ls /home/eteled/Python'
@@ -130,14 +134,17 @@ loginpass = \"{pwdreshash1}\""""
 
     def do_cd(self, arg):
         'Changes directory. Ex: cd programs'
+        # we need the current directory
         currentdir = os.getcwd()
         for name in os.listdir(currentdir):
+            # might make this more accurate to the linux cd command that is case sensitive
             if name.lower() == arg:
                 # found the directory
                 dir_path = os.path.join(currentdir, name)
                 os.chdir(dir_path)
                 IsFound = True
             else:
+                # tries to see if you have 2 or 3 dots, and if so just sends you back 1 directory
                 if arg == "..":
                    dir_path = os.path.join(currentdir, "..")
                    os.chdir(dir_path)
@@ -146,22 +153,27 @@ loginpass = \"{pwdreshash1}\""""
                    os.chdir(dir_path) 
                 else: 
                    logging.info("Dir not found")
-        
+        # Set the hostname and current directory
         hostname_color = colored(f'{cred.loginname}@{lang.hostname}-LiuOS', 'light_green')
         currentdir = os.getcwd()
         dir_color = colored(f'{currentdir}', 'light_blue')
+        # actually set the prompt
         self.prompt = f"{hostname_color}:{dir_color}$ "
 
     def do_cp(self, arg):
         'Copies a file specified in input fields when this command is run. Ex: cp'
+        # too lazy to work with arg for this
         src = input(lang.SOURCE_FILE)
         dst = input(lang.DEST_FILE)
+        # all we do is just write the contents to the file
+        # this could introduce an issue if the file already exists
         with open(src, 'r') as f_src:
             with open(dst, 'w') as f_dst:
                 f_dst.write(f_src.read())
 
     def do_mv(self, arg):
-        'Moves a file specified in input fields when this command is run. Ex: cp'
+        'Moves a file specified in input fields when this command is run. Ex: mv'
+        # just cp but deletes the file after
         src = input(lang.SOURCE_FILE)
         dst = input(lang.DEST_FILE)
         with open(src, 'r') as f_src:
@@ -171,22 +183,36 @@ loginpass = \"{pwdreshash1}\""""
 
     def do_rm(self, arg):
         'Removes the file or folder with the specified path. Ex: rm /home/serialkiller/murder/knife.jpg'
+        # all we do is call the remove function
         os.remove(arg)
         
     def do_clear(self, arg):
         'Clears the screen'
+        # detects NT and uses the "cls" command, otherwise use "clear"
         os.system('cls' if os.name == 'nt' else 'clear')
 
 
-    # ----- record and playback -----
+    # ----- record and playback -----'
+    # just the rec / play functions from the turtle with cmd demo
+    # this is kinda like .bat files on Windows systems but for LiuOS
+    # i don't even know if this works
     def do_savecmd(self, arg):
-        'Save future commands to filename:  RECORD rose.cmd'
+        'Save future commands to filename. Ex: savecmd rose.cmd'
         self.file = open(arg, 'w')
     def do_opencmd(self, arg):
-        'Playback commands from a file:  PLAYBACK rose.cmd'
-        self.close()
-        with open(arg) as f:
-            self.cmdqueue.extend(f.read().splitlines())
+        'Playback commands from a file. Ex: opencmd rose.cmd'
+        print(lang.CONFORM_RUN_FILE)
+        conformation = input()
+        if conformation == "yes":
+            self.close()
+            with open(arg) as f:
+                self.cmdqueue.extend(f.read().splitlines())
+        elif conformation == "y":
+            self.close()
+            with open(arg) as f:
+                self.cmdqueue.extend(f.read().splitlines())
+        else:
+            return
     def precmd(self, line):
         line = line.lower()
         if self.file and 'playback' not in line:
@@ -276,7 +302,8 @@ def run_liuos_system():
                 trace = traceback.format_exc()
                 error_description = str(e)
                 error_code = hash(error_description)
-                error_description = f"0x100{abs(error_code) % 256:02x}"
+                error_code_str = str(error_code)
+                error_description = f"0x{error_code_str.replace('-', '')}"
                 # error message to be displayed on exception
                 print(f"\n;(\nA fatal error has occurred causing an exception. LiuOS has stopped to prevent data corruption or other issues.\n\nError code: {error_description}\n\nDescription of error: {e}")
                 if should_crash:

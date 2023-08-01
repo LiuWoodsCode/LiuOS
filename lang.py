@@ -90,3 +90,5 @@ UPDATECORE_RECOVERY = "recovery"
 RECOVERY_MODE_WARN = "You are entering recovery mode. LiuWoodsCode is not responsible for any damage caused in Recovery Mode. Continue at your own risk."
 UPDATING_MSG = "Updating LiuOS..."
 RECOVERY_START = "Starting LiuOS Recovery..."
+# Safety
+CONFORM_RUN_FILE = colored(f'You are about to run a command file.\n This could contain Shell/CMD/PowerShell commands or Python code that could be dangerous.\n\nARE YOU SURE YOU WANT TO RUN THE COMMANDS IN THIS FILE?', 'red')
