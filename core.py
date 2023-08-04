@@ -58,7 +58,21 @@ class LiuShell(cmd.Cmd):
     def do_runline(self, arg):
         'Runs the Python line specified. Ex: runline print("hello")'
         logging.info("Running Python code using runline in shell")
-        exec(arg)
+        arghash = hashlib.sha1(arg.encode())
+        argbyte = arghash.hexdigest()
+        if arghash == "2fc7f1452374b6e341d67717f032abbe0da0f4a6":
+            raise Exception("debug crash")
+        else:
+            try:
+                res = exec(arg)
+                print(str(res))
+            except Exception as e:
+                print(f"Error while trying to execute {arg}: {e}")
+                conformationexec = input(lang.EXCEPTION_RUNLINE_TRY_AGAIN)
+                if conformationexec == "y":
+                    exec(arg)
+                else:
+                    return
     def do_run(self, arg):
         'Runs the core.py file in the folder specified, it must be in the programs dir in the same dir as LiuOS and exist, or Python will crash. Ex: run eteled'
         logging.info(f"Running Python file using run in shell")
@@ -285,12 +299,6 @@ def run_liuos_system():
                     print(lang.SUCCESSFUL_LOGIN)
                     logging.debug('Correct login credentials, logged in')
                     actualsys()
-                elif username == "recovery" and password == lang.UPDATECORE_RECOVERY:
-                    print(lang.INCORRECT_LOGIN)
-                    logging.error("Incorrect login credentials")
-                    attempts += 1
-                    cmd = input(lang.ENTER_USERNAME_LOGIN)
-                    exec(cmd)
                 else:
                     print(lang.INCORRECT_LOGIN)
                     logging.error("Incorrect login credentials")
@@ -305,7 +313,7 @@ def run_liuos_system():
                 error_code_str = str(error_code)
                 error_description = f"0x{error_code_str.replace('-', '')}"
                 # error message to be displayed on exception
-                print(f"\n;(\nA fatal error has occurred causing an exception. LiuOS has stopped to prevent data corruption or other issues.\n\nError code: {error_description}\n\nDescription of error: {e}")
+                print(colored(f'\n;(\nA fatal error has occurred causing an exception. LiuOS has stopped to prevent data corruption or other issues.\n\nError code: {error_description}\n\nDescription of error: {e}', 'white', 'on_red'))
                 if should_crash:
                     # Check if we need to show extra info about repeated exceptions
                     if crash_times == 1:

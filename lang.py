@@ -58,7 +58,11 @@ CURRENT_LANG = "EngUS"
 LANG_VER = 2.0
 CURRENT_LONG_LANG = "English (US)"
 # Authentication
-OS_NAME_LOGIN = f"{result}LiuOS {api.VerLiuOS}"
+LINE1 =  colored(f'██▓     ██▓ █    ██  ▒█████    ██████ ', 'blue')
+LINE4 =  colored(f'▓██▒   ▒▓██▒ ██  ▓██▒▒██▒  ██▒▒██    ▒ ', 'cyan')
+LINE2 = colored(f'▒██░   ▒▒██▒▓██  ▒██░▒██░  ██▒░ ▓██▄   \n', 'magenta')
+LINE3 = colored(f'▒██░   ░░██░▓▓█  ░██░▒██   ██░  ▒   ██▒\n░██████░░██░▒▒█████▓ ░ ████▓▒░▒██████▒▒\n░ ▒░▓   ░▓  ░▒▓▒ ▒ ▒ ░ ▒░▒░▒░ ▒ ▒▓▒ ▒ ░\n░ ░ ▒  ░ ▒ ░░░▒░ ░ ░   ░ ▒ ▒░ ░ ░▒  ░  \n  ░ ░  ░ ▒ ░ ░░░ ░ ░ ░ ░ ░ ▒  ░  ░  ░  \n    ░    ░     ░         ░ ░        ░', 'light_magenta')
+OS_NAME_LOGIN = f"\n{LINE1}\n{LINE4}\n{LINE2}{LINE3}\n{result}\nLiuOS {api.VerLiuOS}"
 CHANGE_CREDENTIAL_ALERT = "You have not set up user credentials. The default username is \"username\", and the password is \"password\".\nWhen you log in, run the \"changecred\" command to change the username and password."
 ENTER_USERNAME_CREATION = "Enter a username, keep blank to use \"username\": "
 ENTER_PASSWD_CREATION = "Enter a password: "
@@ -92,3 +96,4 @@ UPDATING_MSG = "Updating LiuOS..."
 RECOVERY_START = "Starting LiuOS Recovery..."
 # Safety
 CONFORM_RUN_FILE = colored(f'You are about to run a command file.\n This could contain Shell/CMD/PowerShell commands or Python code that could be dangerous.\n\nARE YOU SURE YOU WANT TO RUN THE COMMANDS IN THIS FILE?', 'red')
+EXCEPTION_RUNLINE_TRY_AGAIN = "Would you like to try again without the crash handler? Answer with either y or n: "

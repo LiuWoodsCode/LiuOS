@@ -7,7 +7,7 @@ import ctypes
 ## LiuOS API v0.0.1
 ## API Starts here
 VerAPI = "0.1.5"
-VerLiuOS = "0.3.0"
+VerLiuOS = "0.4.0"
 DebugBuild = False
 RepoURL = "https://github.com/LiuWoodsCode/LiuOS"
 ## Handy GHA check variable
