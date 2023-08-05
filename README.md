@@ -1,8 +1,8 @@
-# LiuOS
+# ![LiuOS](/img/logo.png)
 
 [![LiuOS Tests](https://github.com/LiuWoodsCode/LiuOS/actions/workflows/python-package.yml/badge.svg?branch=main)](https://github.com/LiuWoodsCode/LiuOS/actions/workflows/python-package.yml) [![Vulnerability Check](https://github.com/LiuWoodsCode/LiuOS/actions/workflows/codeql.yml/badge.svg)](https://github.com/LiuWoodsCode/LiuOS/actions/workflows/codeql.yml) [![LiuOS Testing on older Python releases](https://github.com/LiuWoodsCode/LiuOS/actions/workflows/python-multi.yml/badge.svg)](https://github.com/LiuWoodsCode/LiuOS/actions/workflows/python-multi.yml)
 
-A Python project meant to be like a computer's operating system in Python (logo and catchy slogan coming soon, preorder now!)
+A Python project meant to be like a computer's operating system in Python (catchy slogan coming soon, preorder now!)
 
 ## How do I use this?
 
