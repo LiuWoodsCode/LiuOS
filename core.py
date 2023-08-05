@@ -1,3 +1,16 @@
+
+# ██▓     ██▓ █    ██  ▒█████    ██████ 
+# ▓██▒   ▒▓██▒ ██  ▓██▒▒██▒  ██▒▒██    ▒ 
+# ▒██░   ▒▒██▒▓██  ▒██░▒██░  ██▒░ ▓██▄   
+# ▒██░   ░░██░▓▓█  ░██░▒██   ██░  ▒   ██▒
+# ░██████░░██░▒▒█████▓ ░ ████▓▒░▒██████▒▒
+# ░ ▒░▓   ░▓  ░▒▓▒ ▒ ▒ ░ ▒░▒░▒░ ▒ ▒▓▒ ▒ ░
+# ░ ░ ▒  ░ ▒ ░░░▒░ ░ ░   ░ ▒ ▒░ ░ ░▒  ░  
+#  ░ ░  ░ ▒ ░ ░░░ ░ ░ ░ ░ ░ ▒  ░  ░  ░  
+#    ░    ░     ░         ░ ░        ░
+#
+# LiuOS Shell + Authentication
+# 
 # set some vars, I know this is bad Python pratice.
 IsFound = False
 username = ""
@@ -46,7 +59,7 @@ if lang.result != "":
 # Our shell class
 class LiuShell(cmd.Cmd):
     
-    intro = lang.SHELL_INTRO
+    intro = lang.OS_NAME_SPLASH
     prompt = f"{hostname_color}:{dir_color}$ "
     file = None
     doc_header = lang.HELP_HEADER
@@ -137,10 +150,16 @@ loginpass = \"{pwdreshash1}\""""
         'Lists files in either the current directory, or a specified directory. Ex: ls /home/eteled/Python'
         if arg == "":
          lsout = os.listdir(".")
-         print(lsout)
+         lsout.sort()  # Sort the list alphabetically
+	
+         for file_name in lsout:
+           print(file_name)
         else:
          lsout = os.listdir(arg)
-         print(lsout)
+         lsout.sort()  # Sort the list alphabetically
+	
+         for file_name in lsout:
+           print(file_name)
 
     def do_pwd(self, arg):
         'Displays your current directory. Ex: pwd'
@@ -250,6 +269,7 @@ def actualsys() :
         LiuShell().cmdloop()
 logging.debug("Assigned main system function")
 def run_liuos_system():
+    # just a GHA check to bypass input() and
     if os.environ.get('GITHUB_ACTIONS') == "true":
         logging.info('Running on GitHub Actions, not using the LiuOS Shell')
         print(lang.ENTER_USERNAME_LOGIN)
@@ -258,14 +278,18 @@ def run_liuos_system():
         logging.warning("Fake login completed")
         print(lang.SHELL_INTRO)
         print("LiuOS: pwd")
+        # get the current directory
         LiuShell().do_pwd("test")
         print("LiuOS: ls")
+        # run directory listing
         LiuShell().do_ls()
         print("Output from an echo command:")
+        # runs a system command
         LiuShell().do_runcmd("echo Hello World")
         print("Sample strings:")
         print(lang.SAMPLE_ABC)
         print(lang.SAMPLE_STRING)
+        # loads a test program
         TestProg = "programs/helloworld/core.py"
         logging.debug("Launching test program")
         runpy.run_path(path_name=TestProg)
@@ -274,16 +298,20 @@ def run_liuos_system():
         # Authentication system
         os.system('cls' if os.name == 'nt' else 'clear')
         print(lang.OS_NAME_LOGIN)
+        # detect if the cred has not been changed
         if cred.loginpass == "e9a75486736a550af4fea861e2378305c4a555a05094dee1dca2f68afea49cc3a50e8de6ea131ea521311f4d6fb054a146e8282f8e35ff2e6368c1a62e909716":
+            # warn the user
             print(lang.CHANGE_CREDENTIAL_ALERT)
         crash_times = 0
         attempts = 0
+        # make it so that this has 6 attempts
         while attempts < 7:
             try:
                 username = input(lang.ENTER_USERNAME_LOGIN)
                 logging.debug(f'Entered username {username}')
                 password = getpass.getpass(lang.ENTER_PASSWD_LOGIN)
                 logging.debug('Entered password')
+                # hash the password
                 bytehash = hashlib.sha3_512(password.encode())
                 pwdreshash = bytehash.hexdigest()
                 logging.debug('Generated hash of password')

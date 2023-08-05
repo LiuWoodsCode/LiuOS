@@ -97,3 +97,4 @@ RECOVERY_START = "Starting LiuOS Recovery..."
 # Safety
 CONFORM_RUN_FILE = colored(f'You are about to run a command file.\n This could contain Shell/CMD/PowerShell commands or Python code that could be dangerous.\n\nARE YOU SURE YOU WANT TO RUN THE COMMANDS IN THIS FILE?', 'red')
 EXCEPTION_RUNLINE_TRY_AGAIN = "Would you like to try again without the crash handler? Answer with either y or n: "
+OS_NAME_SPLASH= f"\n{LINE1}\n{LINE4}\n{LINE2}{LINE3}\n\n{SHELL_INTRO}"
