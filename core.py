@@ -63,6 +63,12 @@ class LiuShell(cmd.Cmd):
     prompt = f"{hostname_color}:{dir_color}$ "
     file = None
     doc_header = lang.HELP_HEADER
+    # a function to do nothing
+    def emptyline(self):
+        pass
+
+    def default(self, line):
+        print(f"{line}: {lang.COMMAND_NOT_FOUND}")
     # ----- LiuOS Shell commands -----
     def do_runcmd(self, arg):
         'Runs the host shell command specified. Ex: runcmd echo'

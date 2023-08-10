@@ -80,11 +80,13 @@ SAMPLE_ABC = "EngUS - ABCDEFGHIJKLNOPQRSTUVWXYZabcdefghijklnopqustuvwxyz12345678
 SAMPLE_STRING = "Henry Morris = Eteled"
 # LiuOS Shell
 SHELL_PROMPT = "LiuOS $ "
-SHELL_INTRO = f"LiuOS Shell, running on kernel version Python {python}.\nType help or ? to list available commands.\n"
+SHELL_INTRO = f"LiuOS {api.VerLiuOS}, running on kernel version Python {python}.\nType help or ? to list available commands.\n"
 HELP_HEADER = f"LiuOS commands in this current build ({api.VerLiuOS}). Type \"help (command)\" for details about a command."
+COMMAND_NOT_FOUND = "command not found"
 # Commands 
 # Version
-VersionOutput = f"LiuOS {api.VerLiuOS}\nLiuOS API {api.VerAPI}\nLiuOS Language Pack {CURRENT_LANG} {LANG_VER}\nRelease Type: {get_release_channel()}\n-----------------------\nKernel (Python) version: {python}\nLow level OS: {lowlevelos}"
+OS_NAME_LOGO= f"\n{LINE1}\n{LINE4}\n{LINE2}{LINE3}"
+VersionOutput = f"{OS_NAME_LOGO}\n\nLiuOS {api.VerLiuOS}\nLiuOS API {api.VerAPI}\nLiuOS Language Pack {CURRENT_LANG} {LANG_VER}\nRelease Type: {get_release_channel()}\n-----------------------\nKernel (Python) version: {python}\nLow level OS: {lowlevelos}"
 # WebGet
 CHECK_LOG = "Request output saved to your log file."
 # Shut Down
@@ -97,4 +99,5 @@ RECOVERY_START = "Starting LiuOS Recovery..."
 # Safety
 CONFORM_RUN_FILE = colored(f'You are about to run a command file.\n This could contain Shell/CMD/PowerShell commands or Python code that could be dangerous.\n\nARE YOU SURE YOU WANT TO RUN THE COMMANDS IN THIS FILE?', 'red')
 EXCEPTION_RUNLINE_TRY_AGAIN = "Would you like to try again without the crash handler? Answer with either y or n: "
+# Other
 OS_NAME_SPLASH= f"\n{LINE1}\n{LINE4}\n{LINE2}{LINE3}\n\n{SHELL_INTRO}"
