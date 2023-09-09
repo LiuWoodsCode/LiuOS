@@ -313,6 +313,7 @@ def run_liuos_system():
         # make it so that this has 6 attempts
         while attempts < 7:
             try:
+                # ask for the user's creds
                 username = input(lang.ENTER_USERNAME_LOGIN)
                 logging.debug(f'Entered username {username}')
                 password = getpass.getpass(lang.ENTER_PASSWD_LOGIN)
@@ -325,6 +326,7 @@ def run_liuos_system():
                     # Brute force protection
                     logging.fatal("6 or more incorrect credentials entered")
                     ERROR_CODE = "CRED_FORCE_ERROR"
+                    # just raise an exception
                     raise Exception(lang.BRUTE_FORCE_CRASH)
                 if os.environ.get('GITHUB_ACTIONS') == "true":
                     logging.warning("Running on Github Actions")
@@ -375,5 +377,8 @@ if __name__ == "__main__":
     IsUsingAPI = False
     run_liuos_system()
 else:
-    print(f"Warning: LiuOS is being used as a module by {__name__}\nNote: If it's being used by \"core\", then it's being used in a LiuOS program.")
+    if __name__ == "core":
+        print("Info: LiuOS Shell is being used by a LiuOS program")
+    else:
+        print(f"Warning: LiuOS is being used as a module by {__name__}\nNote: If it's being used by \"core\", then it's being used in a LiuOS program.")
     logging.warning(f"LiuOS should not be used as a Python module ")
