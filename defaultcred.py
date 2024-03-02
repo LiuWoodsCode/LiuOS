@@ -1,4 +1,5 @@
 ## Sample Credentials - Change these!
+
 hasChanged = False ## Change this to true when you change it
 loginname = "username"
 ## SHA512 hash of your password (default is "password", no quotes)

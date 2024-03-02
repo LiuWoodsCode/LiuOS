@@ -20,33 +20,57 @@ should_crash = True
 # Import
 import http.client
 import logging
-FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
-logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
+import sys
+import traceback
+import os
+try:
+    FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
+    logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
+except Exception as wpException:
+    print(f"LiuOS cannot create/access the log file at {os.getcwd()}\\LiuOS.log.\n\nCheck to make sure you have write permissions to the folder you are in, that you have enough disk space, and make sure the directory you are in is mutable.\n\nIf the issue presists, your storage media could be full, write protected or failing.\n\nError from Python: {wpException.args}")
+    sys.exit(1)
+logging.debug("Imported traceback")
+logging.debug("Imported sys")
+logging.debug("Imported os")
 logging.debug("Starting LiuOS")
-import api
-logging.debug(f"Loaded LiuOS API {api.VerAPI}")
+import platform
+try:
+    import api
+    logging.debug(f"Loaded LiuOS API {api.VerAPI}")
+except:
+    logging.fatal("Could not find/load the api module. Quitting!")
+    print("LiuOS could not find the API libary. Please make sure you have not deleted or renamed it and try again.")
+    sys.exit(1)
 import hashlib
 logging.debug("Imported hashlib")
 import getpass
 logging.debug("Imported getpass")
-import lang
-logging.debug(f"Loaded LiuOS {lang.CURRENT_LANG}")
-import os
-logging.debug("Imported os")
-import cred
-logging.debug("Imported cred.py")
-import sys
-logging.debug("Imported sys")
+try:
+    import lang
+    logging.debug(f"Loaded LiuOS {lang.CURRENT_LANG}")
+except:
+    logging.fatal("Could not find/load the lang module. Quitting!")
+    print("LiuOS could not find the API libary. Please make sure you have not deleted or renamed it and try again.")
+    sys.exit(1)
+try:
+    import cred
+    logging.debug("Imported cred.py")
+except:
+    logging.fatal("Could not find/load the cred module. Quitting.")
+    print("LiuOS cannot load because you have a missing or damaged credential file. Run setup.py to fix the credential file.")
+
 import cmd
 logging.debug("Imported cmd")
 import runpy
 logging.debug("Imported runpy")
 import time
 logging.debug("Imported time")
-import traceback
-logging.debug("Imported traceback")
-from termcolor import colored
-logging.debug("Imported colored from termcolor")
+try:
+    from termcolor import colored
+    logging.debug("Imported colored from termcolor")
+except:
+    print("The termcolor libary could not be found. Please check that you have installed it.\n\nIf the libary is not installed, please install it with \"python3 -m pip install termcolor\".")
+    sys.exit(1)
 # Some more vars
 hostname_color = colored(f'{cred.loginname}@{lang.hostname}-LiuOS', 'light_green')
 currentdir = os.getcwd()
@@ -93,27 +117,37 @@ class LiuShell(cmd.Cmd):
                 else:
                     return
     def do_run(self, arg):
-        'Runs the core.py file in the folder specified, it must be in the programs dir in the same dir as LiuOS and exist, or Python will crash. Ex: run eteled'
+        'Runs the core.py file in the folder specified, it must be in the programs dir in the same dir as LiuOS and exist. Ex: run eteled'
         logging.info(f"Running Python file using run in shell")
+        # try:
         runpy.run_path(path_name=f"programs/{arg}/core.py")
+        # except: 
+            # print(f"{arg} {lang.PROG_HAS_CRASHED}")
     def do_changecred(self, arg):
         'Allows you to set up or change your login credentials.'
+        # Use the new elevation call in the LiuOS API
+        elevation = api.elevateSession("org.LiuWoodsCode.LiuOS.changecred", "Change Credentials", "LiuWoodsCode", False, True, "Change your LiuOS username and/or password")
         logging.info("Changing login")
-        setusr = input(lang.ENTER_USERNAME_CREATION)
-        if setusr == "":
-            setusr = "username"
-        setpass = getpass.getpass(lang.ENTER_PASSWD_CREATION)
-        if setpass == "":
-            raise Exception("No password supplied")
-        bytehash1 = hashlib.sha3_512(setpass.encode())
-        pwdreshash1 = bytehash1.hexdigest()
-        content = f"""loginname = \"{setusr}\"
+        # Asks for username
+        if elevation: 
+            setusr = input(lang.ENTER_USERNAME_CREATION)
+            if setusr == "":
+                setusr = "username"
+        # Ask for password
+            setpass = getpass.getpass(lang.ENTER_PASSWD_CREATION)
+            if setpass == "":
+                raise Exception("No password supplied")
+            bytehash1 = hashlib.sha3_512(setpass.encode())
+            pwdreshash1 = bytehash1.hexdigest()
+            content = f"""loginname = \"{setusr}\"
 loginpass = \"{pwdreshash1}\""""
-        file_path = "cred.py"  # Replace with the actual file path
-        with open(file_path, 'w') as file:
-            file.write(content)
-        print("Credentials saved. LiuOS will exit.")
-        exit()
+            file_path = "cred.py"  # Replace with the actual file path
+            with open(file_path, 'w') as file:
+                file.write(content)
+            print("Credentials saved. LiuOS will exit.")
+            exit()
+        else:
+            print(lang.CHANGECRED_ELEVATION_FAILED)
     def do_logout(self, arg):
         'Closes the shell. Ex: logout'
         logging.warning("Logging out shell session")
@@ -122,16 +156,27 @@ loginpass = \"{pwdreshash1}\""""
         self.close()
         return True
     def do_shutdown(self, arg):
-        'Closes the shell, and quits the script. Ex: shutdown'
+        'Shuts down the system. May require appropriate low level OS permissions. Ex: shutdown'
+        confirm = input(lang.SHUTDOWN_WARNING)
+        if confirm == "Y":
+            logging.info("Shut down using shell command")
+            system_platform = platform.system()
+            if system_platform == 'Linux':
+                os.system('sudo shutdown now')
+            elif system_platform == 'Windows':
+                os.system('shutdown /s /t 1 /d "LiuOS initated shutdown"')
+            elif system_platform == 'Darwin':  # MacOS
+                os.system('sudo shutdown now')
+            else:
+                raise OSError("Unsupported operating system")
+        else:
+            pass
+    def do_exit(self, arg):
+        'Closes the shell, and quits the script. Ex: exit'
         print(lang.LOGGING_OUT)
         logging.info("Shut down using shell command")
         # We just run the exit() function, like what you call in the Python she;;
         exit()
-        return True
-    def do_exit(self, arg):
-        'Exits the shell'
-        # Just an ailas to do_shutdown until I can make it shut down the system
-        LiuShell.do_shutdown(self,None)
 
     # ----- ChatGPT Generated Commands
     def do_webget(self, arg):    
@@ -184,6 +229,7 @@ loginpass = \"{pwdreshash1}\""""
                 IsFound = True
             else:
                 # tries to see if you have 2 or 3 dots, and if so just sends you back 1 directory
+                # dosn't work with more dots. Too bad! 
                 if arg == "..":
                    dir_path = os.path.join(currentdir, "..")
                    os.chdir(dir_path)
@@ -305,6 +351,8 @@ def run_liuos_system():
         os.system('cls' if os.name == 'nt' else 'clear')
         print(lang.OS_NAME_LOGIN)
         # detect if the cred has not been changed
+        # this is just the hash of the word "password"
+        # this will fail if the user sets their password to "password". Too bad!
         if cred.loginpass == "e9a75486736a550af4fea861e2378305c4a555a05094dee1dca2f68afea49cc3a50e8de6ea131ea521311f4d6fb054a146e8282f8e35ff2e6368c1a62e909716":
             # warn the user
             print(lang.CHANGE_CREDENTIAL_ALERT)
@@ -331,7 +379,7 @@ def run_liuos_system():
                 if os.environ.get('GITHUB_ACTIONS') == "true":
                     logging.warning("Running on Github Actions")
                     actualsys()
-                elif username == cred.loginname and pwdreshash == cred.loginpass:
+                elif username == cred.loginname and pwdreshash == cred.loginpass: # using modules is easier to use, but not very versitile
                     print(lang.SUCCESSFUL_LOGIN)
                     logging.debug('Correct login credentials, logged in')
                     actualsys()
@@ -349,7 +397,7 @@ def run_liuos_system():
                 error_code_str = str(error_code)
                 error_description = f"0x{error_code_str.replace('-', '')}"
                 # error message to be displayed on exception
-                print(colored(f'\n;(\nA fatal error has occurred causing an exception. LiuOS has stopped to prevent data corruption or other issues.\n\nError code: {error_description}\n\nDescription of error: {e}', 'white', 'on_red'))
+                print(f'\n;(\nA fatal error has occurred causing an exception. LiuOS has stopped to prevent data corruption or other issues.\n\nError code: {error_description}\n\nDescription of error: {e}')
                 if should_crash:
                     # Check if we need to show extra info about repeated exceptions
                     if crash_times == 1:

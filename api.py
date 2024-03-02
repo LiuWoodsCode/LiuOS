@@ -4,17 +4,44 @@ import os
 import platform
 import datetime
 import ctypes
+import getpass
+import cred
+import hashlib
 ## LiuOS API v0.0.1
 ## API Starts here
 VerAPI = "0.1.5"
 VerLiuOS = "0.4.0"
 DebugBuild = False
 RepoURL = "https://github.com/LiuWoodsCode/LiuOS"
+# elevation, something I've wanted since LiuOS development started
+def generate_confirm_msg(progName, progID, progPub, isShellAccessAttempt, isSystem, description):
+    if isShellAccessAttempt:
+          ender = f"is attempting to access the LiuOS Shell.\n\nThis could be intentional (e.g to run a set of commands for you), but it could also pose security risks. Please authenticate to continue, or enter nothing to cancel.\n\nReason (provided by app): {description}\n"
+    else:
+          ender = f"is asking for more privileged access.\n\nThis could be intentional (e.g to change an in-app password), but it could also pose security risks, depending on what the app developer wants to do. Please authenticate to continue, or enter nothing to cancel.\n\nReason (provided by app): {description}\n"      
+    if isSystem:
+          ender = f"is asking for more privileged access.\n\nPlease authenticate to continue, or enter nothing to cancel.\n\nReason (provided by system process): {description}\n"
+   # jank but it works
+    return f"The application {progName} ({progID}) by {progPub} {ender}"
+# Other
 ## Handy GHA check variable
+def elevateSession(progID, progName, progPub, isShellAccessAttempt, isSystem, description):
+      'Ask for permission to access LiuOS Shell commands or to do destructive actions'
+      output = generate_confirm_msg(progName, progID, progPub, isShellAccessAttempt, isSystem, description)
+      print(output)
+      password = getpass.getpass("Password: ")
+      # hash the password
+      bytehash = hashlib.sha3_512(password.encode())
+      pwdreshash = bytehash.hexdigest()
+      if pwdreshash == cred.loginpass:
+            return True
+      else:
+            return False
 if os.environ.get('GITHUB_ACTIONS') == "true":
     RunningActions = True
 else:
     RunningActions = False
+
 def do_webget(self, arg):    
         'Makes a web request Can only use HTTPS if Python was compiled with SSL/TLS support.'
         conn = http.client.HTTPSConnection(arg)

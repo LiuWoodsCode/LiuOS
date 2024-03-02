@@ -1,0 +1,10 @@
+# Release 0.4.0
+Several new features that I've wanted since LiuOS development started
+* Elevation (like UAC but for LiuOS)
+* Authentication for the `changecred` command
+* Crash handler for LiuOS Apps
+* Changelog for each release
+
+Bug fixes:
+* Fixed an issue where running `core.py` without running `setup.py` would cause an exception
+* Fixed an issue where missing modules would result in an exception

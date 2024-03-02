@@ -41,7 +41,7 @@ def set_fuckspez_remark():
 # Test the function
 result = set_fuckspez_remark()
 
-IsDebug = True
+IsDebug = False
 IsInternal = False
 from termcolor import colored
 def get_release_channel() :
@@ -86,6 +86,8 @@ SHELL_INTRO = f"LiuOS {api.VerLiuOS}, running on kernel version Python {python}.
 HELP_HEADER = f"LiuOS commands in this current build ({api.VerLiuOS}). Type \"help (command)\" for details about a command."
 COMMAND_NOT_FOUND = "command not found"
 # Commands 
+# Change Credentials
+CHANGECRED_ELEVATION_FAILED = "LiuOS cannot change your credentials without elevation."
 # Version
 OS_NAME_LOGO= f"\n{LINE1}\n{LINE4}\n{LINE2}{LINE3}"
 VersionOutput = f"{OS_NAME_LOGO}\n\nLiuOS {api.VerLiuOS}\nLiuOS API {api.VerAPI}\nLiuOS Language Pack {CURRENT_LANG} {LANG_VER}\nRelease Type: {get_release_channel()}\n-----------------------\nKernel (Python) version: {python}\nLow level OS: {lowlevelos}"
@@ -101,5 +103,7 @@ RECOVERY_START = "Starting LiuOS Recovery..."
 # Safety
 CONFORM_RUN_FILE = colored(f'You are about to run a command file.\n This could contain Shell/CMD/PowerShell commands or Python code that could be dangerous.\n\nARE YOU SURE YOU WANT TO RUN THE COMMANDS IN THIS FILE?', 'red')
 EXCEPTION_RUNLINE_TRY_AGAIN = "Would you like to try again without the crash handler? Answer with either y or n: "
-# Other
+SHUTDOWN_WARNING = "Do you really want to shut down? \n\nY = Yes\nN = No"
+# Crash handler
+PROG_HAS_CRASHED = "has crashed. Please consult the developer for more information. At least it isn't as bad as Shinji Aoba!"
 OS_NAME_SPLASH= f"\n{LINE1}\n{LINE4}\n{LINE2}{LINE3}\n\n{SHELL_INTRO}"
