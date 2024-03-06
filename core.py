@@ -382,6 +382,12 @@ def run_liuos_system():
                 elif username == cred.loginname and pwdreshash == cred.loginpass: # using modules is easier to use, but not very versitile
                     print(lang.SUCCESSFUL_LOGIN)
                     logging.debug('Correct login credentials, logged in')
+                    # clears the password variable so that a debugger can't sniff the input after login
+                    # this doesn't help if you litterally set your password to "FuckShinjiAoba"
+                    # #PrayForKyoAni
+                    password = "FuckShinjiAoba"
+                    # makes the hash and the password match up
+                    pwdreshash = "8897d5a6fbee6c827ee6d2ba200c276d2597736760ee78b954d32b5b5c4c7f4bd2126762d39d9e938093ad44f7d93485165d1ac6e4a9ad18ad68f6fa69e8184e"
                     actualsys()
                 else:
                     print(lang.INCORRECT_LOGIN)
