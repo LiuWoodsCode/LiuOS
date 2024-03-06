@@ -11,7 +11,7 @@
 #
 # LiuOS Shell + Authentication
 # 
-# set some vars, I know this is bad Python pratice.
+# set some vars, I know this is bad Python practice.
 IsFound = False
 username = ""
 currentdir = ""
@@ -27,7 +27,7 @@ try:
     FORMAT = '%(levelname)s | TIME - %(asctime)s | PROCESS - %(processName)s %(process)d | MSG - %(message)s'
     logging.basicConfig(filename='LiuOS.log', encoding='utf-8', level=logging.DEBUG, format=FORMAT)
 except Exception as wpException:
-    print(f"LiuOS cannot create/access the log file at {os.getcwd()}\\LiuOS.log.\n\nCheck to make sure you have write permissions to the folder you are in, that you have enough disk space, and make sure the directory you are in is mutable.\n\nIf the issue presists, your storage media could be full, write protected or failing.\n\nError from Python: {wpException.args}")
+    print(f"LiuOS cannot create/access the log file at {os.getcwd()}\\LiuOS.log.\n\nCheck to make sure you have write permissions to the folder you are in, that you have enough disk space, and make sure the directory you are in is mutable.\n\nIf the issue persists, your storage media could be full, write protected or failing.\n\nError from Python: {wpException.args}")
     sys.exit(1)
 logging.debug("Imported traceback")
 logging.debug("Imported sys")
@@ -39,7 +39,7 @@ try:
     logging.debug(f"Loaded LiuOS API {api.VerAPI}")
 except:
     logging.fatal("Could not find/load the api module. Quitting!")
-    print("LiuOS could not find the API libary. Please make sure you have not deleted or renamed it and try again.")
+    print("LiuOS could not find the API library. Please make sure you have not deleted or renamed it and try again.")
     sys.exit(1)
 import hashlib
 logging.debug("Imported hashlib")
@@ -50,7 +50,7 @@ try:
     logging.debug(f"Loaded LiuOS {lang.CURRENT_LANG}")
 except:
     logging.fatal("Could not find/load the lang module. Quitting!")
-    print("LiuOS could not find the API libary. Please make sure you have not deleted or renamed it and try again.")
+    print("LiuOS could not find the API library. Please make sure you have not deleted or renamed it and try again.")
     sys.exit(1)
 try:
     import cred
@@ -69,7 +69,7 @@ try:
     from termcolor import colored
     logging.debug("Imported colored from termcolor")
 except:
-    print("The termcolor libary could not be found. Please check that you have installed it.\n\nIf the libary is not installed, please install it with \"python3 -m pip install termcolor\".")
+    print("The termcolor library could not be found. Please check that you have installed it.\n\nIf the library is not installed, please install it with \"python3 -m pip install termcolor\".")
     sys.exit(1)
 # Some more vars
 hostname_color = colored(f'{cred.loginname}@{lang.hostname}-LiuOS', 'light_green')
@@ -164,7 +164,7 @@ loginpass = \"{pwdreshash1}\""""
             if system_platform == 'Linux':
                 os.system('sudo shutdown now')
             elif system_platform == 'Windows':
-                os.system('shutdown /s /t 1 /d "LiuOS initated shutdown"')
+                os.system('shutdown /s /t 1 /d "LiuOS initiated shutdown"')
             elif system_platform == 'Darwin':  # MacOS
                 os.system('sudo shutdown now')
             else:
@@ -229,7 +229,7 @@ loginpass = \"{pwdreshash1}\""""
                 IsFound = True
             else:
                 # tries to see if you have 2 or 3 dots, and if so just sends you back 1 directory
-                # dosn't work with more dots. Too bad! 
+                # doesn't work with more dots. Too bad! 
                 if arg == "..":
                    dir_path = os.path.join(currentdir, "..")
                    os.chdir(dir_path)
@@ -383,7 +383,7 @@ def run_liuos_system():
                     print(lang.SUCCESSFUL_LOGIN)
                     logging.debug('Correct login credentials, logged in')
                     # clears the password variable so that a debugger can't sniff the input after login
-                    # this doesn't help if you litterally set your password to "FuckShinjiAoba"
+                    # this doesn't help if you literally set your password to "FuckShinjiAoba"
                     # #PrayForKyoAni
                     password = "FuckShinjiAoba"
                     # makes the hash and the password match up
