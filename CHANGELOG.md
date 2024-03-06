@@ -1,0 +1,21 @@
+# Release 0.4.1
+No new features this minor release.
+
+Honorable mentions:
+* Merged the `generate_confirm_msg` and `elevateSession` APIs
+* LiuOS API is now on version 0.1.6
+
+Bug fixes:
+* Fixed an issue where the changelog wasn't Markdown
+* Fixed an issue in the changelog where the 1st bug fix for 0.4.0 wasn't descriptive
+
+# Release 0.4.0
+Several new features that I've wanted since LiuOS development started
+* Elevation (like UAC but for LiuOS)
+* Authentication for the `changecred` command
+* Crash handler for LiuOS Apps
+* Changelog for each release
+
+Bug fixes:
+* Fixed an issue where running `core.py` without running `setup.py` would cause an exception, now it tells you to run `setup.py`
+* Fixed an issue where missing modules would result in an exception, instead telling you what went wrong
