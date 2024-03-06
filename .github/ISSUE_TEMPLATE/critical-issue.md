@@ -1,6 +1,6 @@
 ---
 name: Critical Issue
-about: 'Create a report to get an urgent issue fixed (not vunelbilites '
+about: 'Create a report to get an urgent issue fixed (not security issues)'
 title: ''
 labels: bug, critical
 assignees: ''
