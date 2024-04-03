@@ -4,9 +4,9 @@ API deprecations:
 
 Known issues: 
 
-#8
+Command line does not factor in case sensitivity (#8)
 
-#7
+Webget does not work with any URLs (#7) 
 
 # Release 0.4.1
 No new features this minor release.
