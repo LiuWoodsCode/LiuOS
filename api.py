@@ -93,7 +93,9 @@ def get_version(self):
         return {'version': self.version, 'api_version': self.api_version}
 
 def allocate_memory(self, memory_address, size, data):
-        """Allocates a block of memory of the specified size at the specified memory address and writes the specified data to it. Python for Windows only."""
+        """Allocates a block of memory of the specified size at the specified memory address and writes the specified data to it. Python for Windows only.
+        
+        This function will be deprecated as the function was useless, but may be brought back when speakLiu is released."""
         # allocate memory
         ptr = ctypes.windll.kernel32.VirtualAllocEx(ctypes.c_void_p(), memory_address, size, 0x1000 | 0x2000, 0x04)
         # write data to the allocated memory
