@@ -1,3 +1,12 @@
+# Release 0.4.2
+API deprecations:
+* allocate_memory; only worked on Windows and was redundant as you could just create a variable
+
+Known issues: 
+
+#8
+#7
+
 # Release 0.4.1
 No new features this minor release.
 
