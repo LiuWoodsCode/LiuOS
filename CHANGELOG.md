@@ -8,6 +8,10 @@ Command line does not factor in case sensitivity (#8)
 
 Webget does not work with any URLs (#7) 
 
+Bug fixes:
+
+`changecred` can no longer set your password to `password`.
+
 # Release 0.4.1
 No new features this minor release.
 

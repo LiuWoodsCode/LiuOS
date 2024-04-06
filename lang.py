@@ -104,6 +104,7 @@ RECOVERY_START = "Starting LiuOS Recovery..."
 CONFORM_RUN_FILE = colored(f'You are about to run a command file.\n This could contain Shell/CMD/PowerShell commands or Python code that could be dangerous.\n\nARE YOU SURE YOU WANT TO RUN THE COMMANDS IN THIS FILE?', 'red')
 EXCEPTION_RUNLINE_TRY_AGAIN = "Would you like to try again without the crash handler? Answer with either y or n: "
 SHUTDOWN_WARNING = "Do you really want to shut down? \n\nY = Yes\nN = No"
+PASSWORD_CANNOT_PASSWORD = "Your password cannot be set to \"password\" as is included with the default configuration. Attempting to do so will make the login MOTD think that you have not set new credentials.\n\nYour password has been set to \"liuos\""
 # Crash handler
 PROG_HAS_CRASHED = "has crashed. Please consult the developer for more information. At least it isn't as bad as Shinji Aoba!"
 OS_NAME_SPLASH= f"\n{LINE1}\n{LINE4}\n{LINE2}{LINE3}\n\n{SHELL_INTRO}"

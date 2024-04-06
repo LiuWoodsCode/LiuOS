@@ -137,6 +137,10 @@ class LiuShell(cmd.Cmd):
             setpass = getpass.getpass(lang.ENTER_PASSWD_CREATION)
             if setpass == "":
                 raise Exception("No password supplied")
+            if setpass == "password":
+                logging.error("Password cannot be set to \"password\" as it is insecure.")
+                print(lang.PASSWORD_CANNOT_PASSWORD)
+                setpass = "liuos"
             bytehash1 = hashlib.sha3_512(setpass.encode())
             pwdreshash1 = bytehash1.hexdigest()
             content = f"""loginname = \"{setusr}\"
