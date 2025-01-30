@@ -1,7 +1,7 @@
 # Release 0.4.4.1
 ## Bug fixes:
 
-* Fixed #7
+* Fixed #8
 
 # Release 0.4.4
 ## Bug fixes:
