@@ -1,3 +1,9 @@
+# Release 0.4.4
+## Bug fixes:
+
+* Fixed an issue where setup would wipe your credentials.
+
+
 # Release 0.4.3
 ## New features:
 * Russian language: LiuOS is now mutilingual! (or rather biingual but that's besides the point)

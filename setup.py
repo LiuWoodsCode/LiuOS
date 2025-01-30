@@ -38,6 +38,8 @@ def run_command(command):
 
 file_path = "cred.py"
 if os.path.exists(file_path):
+    print("User credentials already set up.")
+else:
     run_command(get_os_specific_command_cred())
 
 print("Select your language:")
