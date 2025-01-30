@@ -303,7 +303,7 @@ loginpass = \"{pwdreshash1}\""""
         else:
             return
     def precmd(self, line):
-        line = line.lower()
+        line = line
         if self.file and 'playback' not in line:
             print(line, file=self.file)
         return line

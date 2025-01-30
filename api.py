@@ -10,7 +10,7 @@ import hashlib
 ## LiuOS API v0.0.1
 ## API Starts here
 VerAPI = "0.1.7"
-VerLiuOS = "0.4.4"
+VerLiuOS = "0.4.4.1"
 DebugBuild = False
 RepoURL = "https://github.com/LiuWoodsCode/LiuOS"
 # elevation, something I've wanted since LiuOS development started
