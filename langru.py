@@ -90,7 +90,7 @@ COMMAND_NOT_FOUND = "команда не найдена"
 CHANGECRED_ELEVATION_FAILED = "LiuOS не может изменить ваши учетные данные без повышения привилегий."
 # Версия
 OS_NAME_LOGO = f"\n{LINE1}\n{LINE4}\n{LINE2}{LINE3}"
-VersionOutput = f"{OS_NAME_LOGO}\n\nLiuOS {api.VerLiuOS}\nLiuOS API {api.VerAPI}\nЯзыковой пакет LiuOS {CURRENT_LANG} {LANG_VER}\nТип выпуска: {get_release_channel()}\n-----------------------\nВерсия ядра (Python): {python}\nНизкоуровневая ОС: {lowlevelos}"
+VersionOutput = f"LiuOS {api.VerLiuOS}\nLiuOS API {api.VerAPI}\nЯзыковой пакет LiuOS {CURRENT_LANG} {LANG_VER}\nТип выпуска: {get_release_channel()}\n-----------------------\nВерсия ядра (Python): {python}\nНизкоуровневая ОС: {lowlevelos}"
 # WebGet
 CHECK_LOG = "Вывод запроса сохранен в вашем файле журнала."
 # Завершение работы

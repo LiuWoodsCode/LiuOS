@@ -90,7 +90,7 @@ COMMAND_NOT_FOUND = "command not found"
 CHANGECRED_ELEVATION_FAILED = "LiuOS cannot change your credentials without elevation."
 # Version
 OS_NAME_LOGO= f"\n{LINE1}\n{LINE4}\n{LINE2}{LINE3}"
-VersionOutput = f"{OS_NAME_LOGO}\n\nLiuOS {api.VerLiuOS}\nLiuOS API {api.VerAPI}\nLiuOS Language Pack {CURRENT_LANG} {LANG_VER}\nRelease Type: {get_release_channel()}\n-----------------------\nKernel (Python) version: {python}\nLow level OS: {lowlevelos}"
+VersionOutput = f"LiuOS {api.VerLiuOS}\nLiuOS API {api.VerAPI}\nLiuOS Language Pack {CURRENT_LANG} {LANG_VER}\nRelease Type: {get_release_channel()}\n-----------------------\nKernel (Python) version: {python}\nLow level OS: {lowlevelos}"
 # WebGet
 CHECK_LOG = "Request output saved to your log file."
 # Shut Down
