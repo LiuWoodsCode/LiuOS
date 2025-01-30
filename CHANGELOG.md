@@ -1,3 +1,14 @@
+# Release 0.4.3
+## New features:
+* Russian language: LiuOS is now mutilingual! (or rather biingual but that's besides the point)
+
+Known issues: 
+
+Command line does not factor in case sensitivity (#8)
+
+Webget does not work with any URLs (#7) 
+
+
 # Release 0.4.2
 API deprecations:
 * allocate_memory; only worked on Windows and was redundant as you could just create a variable

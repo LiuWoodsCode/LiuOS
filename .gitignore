@@ -6,6 +6,7 @@
 programs/ShellAPI
 easter_egg_hunt.sh
 cred.py
+lang.py
 
 # Stupid macOS/Unix file
 .DS_Store
