@@ -101,8 +101,7 @@ class LiuShell(cmd.Cmd):
     def do_runline(self, arg):
         'Runs the Python line specified. Ex: runline print("hello")'
         logging.info("Running Python code using runline in shell")
-        arghash = hashlib.sha1(arg.encode())
-        argbyte = arghash.hexdigest()
+        arghash = hashlib.sha1(arg.encode()).hexdigest()
         if arghash == "2fc7f1452374b6e341d67717f032abbe0da0f4a6":
             raise Exception("debug crash")
         else:
@@ -222,26 +221,29 @@ loginpass = \"{pwdreshash1}\""""
 
     def do_cd(self, arg):
         'Changes directory. Ex: cd programs'
-        # we need the current directory
+        # get the current directory
         currentdir = os.getcwd()
-        for name in os.listdir(currentdir):
-            # might make this more accurate to the linux cd command that is case sensitive
-            if name.lower() == arg:
-                # found the directory
-                dir_path = os.path.join(currentdir, name)
-                os.chdir(dir_path)
-                IsFound = True
+        target = arg.strip()
+
+        if target in ("..", "..."):
+            # handle parent directory navigation
+            new_path = os.path.join(currentdir, "..")
+            if target == "...":
+                new_path = os.path.join(new_path, "..")
+        else:
+            # search for directory name ignoring case
+            match = None
+            for name in os.listdir(currentdir):
+                if name.lower() == target.lower():
+                    match = name
+                    break
+            if match:
+                new_path = os.path.join(currentdir, match)
             else:
-                # tries to see if you have 2 or 3 dots, and if so just sends you back 1 directory
-                # doesn't work with more dots. Too bad! 
-                if arg == "..":
-                   dir_path = os.path.join(currentdir, "..")
-                   os.chdir(dir_path)
-                elif arg == "...":
-                   dir_path = os.path.join(currentdir, "..")
-                   os.chdir(dir_path) 
-                else: 
-                   logging.info("Dir not found")
+                logging.info("Dir not found")
+                return
+
+        os.chdir(new_path)
         # Set the hostname and current directory
         hostname_color = colored(f'{cred.loginname}@{lang.hostname}-LiuOS', 'light_green')
         currentdir = os.getcwd()
